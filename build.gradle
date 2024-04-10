@@ -1,0 +1,230 @@
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'com.diffplug.spotless'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.+'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.3.0'
+        classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main.java.srcDirs = ['src/main/java']
+}
+
+shadowJar {
+    archiveBaseName.set(project.PUBLISH_ARTIFACT_ID)
+    archiveVersion.set(project.PUBLISH_VERSION)
+    archiveClassifier.set('shadow')
+    mergeServiceFiles()
+}
+
+if(hasProperty('target') && target == 'android') {
+
+    apply plugin: 'com.android.library'
+    apply plugin: 'com.github.dcendents.android-maven'
+
+    android {
+        compileSdkVersion 25
+        buildToolsVersion '25.0.2'
+        defaultConfig {
+            minSdkVersion 14
+            targetSdkVersion 25
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+
+        // Rename the aar correctly
+        libraryVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.aar')) {
+                    def fileName = "${project.name}-${variant.baseName}-${version}.aar"
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+
+        dependencies {
+            provided "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
+        }
+    }
+
+    afterEvaluate {
+        android.libraryVariants.all { variant ->
+            def task = project.tasks.create "jar${variant.name.capitalize()}", Jar
+            task.description = "Create jar artifact for ${variant.name}"
+            task.dependsOn variant.javaCompile
+            task.from variant.javaCompile.destinationDir
+            task.destinationDir = project.file("${project.buildDir}/outputs/jar")
+            task.archiveName = "${project.name}-${variant.baseName}-${version}.jar"
+            artifacts.add('archives', task);
+        }
+    }
+
+    task sourcesJar(type: Jar) {
+        from android.sourceSets.main.java.srcDirs
+        classifier = 'sources'
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+} else {
+
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'io.github.gradle-nexus.publish-plugin'
+
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                artifactId = project.PUBLISH_ARTIFACT_ID
+                from components.java
+            }
+
+            mavenShadow(MavenPublication) {
+                artifactId = "${project.PUBLISH_ARTIFACT_ID}-shadow"
+                artifact shadowJar
+            }
+        }
+    }
+
+    task execute(type:JavaExec) {
+        main = System.getProperty('mainClass')
+        classpath = sourceSets.main.runtimeClasspath
+    }
+
+    apply from: "${rootDir}/publish.gradle"
+}
+
+ext {
+    jakarta_annotation_version = "1.3.5"
+}
+
+dependencies {
+    implementation 'io.swagger:swagger-annotations:1.6.8'
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'io.gsonfire:gson-fire:1.9.0'
+    implementation 'javax.ws.rs:jsr311-api:1.1.1'
+    implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
+    implementation 'org.slf4j:slf4j-jdk14:1.7.36'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+}
+
+tasks.withType(Javadoc) {
+    options.tags = [ "http.response.details:a:Http Response Details" ]
+    options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+// Use spotless plugin to automatically format code, remove unused import, etc
+// To apply changes directly to the file, run `gradlew spotlessApply`
+// Ref: https://github.com/diffplug/spotless/tree/main/plugin-gradle
+spotless {
+    // comment out below to run spotless as part of the `check` task
+    enforceCheck false
+
+    format 'misc', {
+        // define the files (e.g. '*.gradle', '*.md') to apply `misc` to
+        target '.gitignore'
+
+        // define the steps to apply to those files
+        trimTrailingWhitespace()
+        indentWithSpaces() // Takes an integer argument if you don't like 4
+        endWithNewline()
+    }
+    java {
+        // don't need to set target, it is inferred from java
+
+        // apply a specific flavor of google-java-format
+        googleJavaFormat('1.8').aosp().reflowLongStrings()
+
+        removeUnusedImports()
+        importOrder()
+    }
+}
+
+build.dependsOn shadowJar
+
+test {
+    // Enable JUnit 5 (Gradle 4.6+).
+    useJUnitPlatform()
+
+    // Always run tests, even when nothing changed.
+    dependsOn 'cleanTest'
+
+    // Show test results.
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+
+}
+
+task runValidateExample(type: JavaExec) {
+    description = 'Runs the CAPI V3 validation example.'
+    group = 'Application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.snap.business.sdk.examples.SendValidateEventsExample'
+    args = []
+}
+
+task runValidateLogsExample(type: JavaExec) {
+    description = 'Runs the CAPI V3 Get Validation Example.'
+    group = 'Application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.snap.business.sdk.examples.ValidateLogsExample'
+    args = []
+}
+
+task runValidateStatsExample(type: JavaExec) {
+    description = 'Runs the CAPI V3 Get Validation Example.'
+    group = 'Application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.snap.business.sdk.examples.ValidateStatsExample'
+    args = []
+}
+
+task runCapiExample(type: JavaExec) {
+    description = 'Runs the CAPI V3 validation example.'
+    group = 'Application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.snap.business.sdk.examples.SendEventsExample'
+    args = []
+}
+
+task runCapiAsyncExample(type: JavaExec) {
+    description = 'Runs the CAPI V3 Async example.'
+    group = 'Application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.snap.business.sdk.examples.SendEventsAsyncExample'
+    args = []
+}
