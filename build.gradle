@@ -193,7 +193,7 @@ task runValidateExample(type: JavaExec) {
     description = 'Runs the CAPI V3 validation example.'
     group = 'Application'
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.snap.business.sdk.examples.SendValidateEventsExample'
+    main = 'com.snap.business.sdk.v3.examples.SendValidateEventsExample'
     args = []
 }
 
@@ -201,7 +201,7 @@ task runValidateLogsExample(type: JavaExec) {
     description = 'Runs the CAPI V3 Get Validation Example.'
     group = 'Application'
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.snap.business.sdk.examples.ValidateLogsExample'
+    main = 'com.snap.business.sdk.v3.examples.ValidateLogsExample'
     args = []
 }
 
@@ -209,7 +209,7 @@ task runValidateStatsExample(type: JavaExec) {
     description = 'Runs the CAPI V3 Get Validation Example.'
     group = 'Application'
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.snap.business.sdk.examples.ValidateStatsExample'
+    main = 'com.snap.business.sdk.v3.examples.ValidateStatsExample'
     args = []
 }
 
@@ -217,7 +217,7 @@ task runCapiExample(type: JavaExec) {
     description = 'Runs the CAPI V3 validation example.'
     group = 'Application'
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.snap.business.sdk.examples.SendEventsExample'
+    main = 'com.snap.business.sdk.v3.examples.SendEventsExample'
     args = []
 }
 
@@ -225,6 +225,6 @@ task runCapiAsyncExample(type: JavaExec) {
     description = 'Runs the CAPI V3 Async example.'
     group = 'Application'
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.snap.business.sdk.examples.SendEventsAsyncExample'
+    main = 'com.snap.business.sdk.v3.examples.SendEventsAsyncExample'
     args = []
 }

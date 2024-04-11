@@ -1,13 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.snap.business.sdk</groupId>
-    <artifactId>capi-v3-java</artifactId>
+    <groupId>com.snap.business.sdk.v3</groupId>
+    <artifactId>snap-capi</artifactId>
     <packaging>jar</packaging>
-    <name>capi-v3-java</name>
+    <name>snap-capi</name>
     <version>1.0.0</version>
     <url>https://github.com/openapitools/openapi-generator</url>
-    <description>OpenAPI Java</description>
+    <description>Snap CAPI V3</description>
     <scm>
         <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
         <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>

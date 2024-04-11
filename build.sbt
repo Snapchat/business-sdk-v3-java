@@ -1,7 +1,7 @@
 lazy val root = (project in file(".")).
   settings(
-    organization := "com.snap.business.sdk",
-    name := "snap-capi-v3",
+    organization := "com.snap.business.sdk.v3",
+    name := "snap-capi",
     version := "1.0.0",
     scalaVersion := "2.11.4",
     scalacOptions ++= Seq("-feature"),

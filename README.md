@@ -38,7 +38,7 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>com.snap.business.sdk</groupId>
+  <groupId>com.snap.business.sdk.v3</groupId>
   <artifactId>capi-v3-java</artifactId>
   <version>1.0.0</version>
   <scope>compile</scope>
@@ -51,12 +51,12 @@ Add this dependency to your project's build file:
 
 ```groovy
   repositories {
-    mavenCentral()     // Needed if the 'capi-v3-java' jar has been published to maven central.
-    mavenLocal()       // Needed if the 'capi-v3-java' jar has been published to the local maven repo.
+    mavenCentral()     // Needed if the 'snap-capi' jar has been published to maven central.
+    mavenLocal()       // Needed if the 'snap-capi' jar has been published to the local maven repo.
   }
 
   dependencies {
-     implementation "com.snap.business.sdk:capi-v3-java:1.0.0"
+     implementation "com.snap.business.sdk.v3:snap-capi:1.0.0"
   }
 ```
 
@@ -70,7 +70,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/capi-v3-java-1.0.0.jar`
+* `target/snap-capi-1.0.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -80,12 +80,12 @@ Please follow the [installation](#installation) instruction and execute the foll
 ```java
 
 // Import classes:
-import com.snap.business.sdk.ApiClient;
-import com.snap.business.sdk.ApiException;
-import com.snap.business.sdk.Configuration;
-import com.snap.business.sdk.auth.*;
-import com.snap.business.sdk.models.*;
-import com.snap.business.sdk.api.DefaultApi;
+import com.snap.business.sdk.v3.ApiClient;
+import com.snap.business.sdk.v3.ApiException;
+import com.snap.business.sdk.v3.Configuration;
+import com.snap.business.sdk.v3.auth.*;
+import com.snap.business.sdk.v3.models.*;
+import com.snap.business.sdk.v3.api.DefaultApi;
 
 public class Example {
   public static void main(String[] args) {
