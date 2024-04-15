@@ -24,6 +24,7 @@ import com.snap.business.sdk.v3.model.EventResponse;
 import com.snap.business.sdk.v3.model.GetLogsResponse;
 import com.snap.business.sdk.v3.model.GetStatsResponse;
 import com.snap.business.sdk.v3.model.SendEventRequest;
+import com.snap.business.sdk.v3.model.SendValidationEventRequest;
 import com.snap.business.sdk.v3.model.ValidateResponse;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -588,7 +589,10 @@ public class DefaultApi {
      * </table>
      */
     public okhttp3.Call sendValidationEventCall(
-            String assetId, String accessToken, SendEventRequest body, final ApiCallback _callback)
+            String assetId,
+            String accessToken,
+            SendValidationEventRequest body,
+            final ApiCallback _callback)
             throws ApiException {
         String basePath = null;
         // Operation Servers
@@ -653,7 +657,10 @@ public class DefaultApi {
 
     @SuppressWarnings("rawtypes")
     private okhttp3.Call sendValidationEventValidateBeforeCall(
-            String assetId, String accessToken, SendEventRequest body, final ApiCallback _callback)
+            String assetId,
+            String accessToken,
+            SendValidationEventRequest body,
+            final ApiCallback _callback)
             throws ApiException {
         // verify the required parameter 'assetId' is set
         if (assetId == null) {
@@ -687,7 +694,8 @@ public class DefaultApi {
      * </table>
      */
     public ValidateResponse sendValidationEvent(
-            String assetId, String accessToken, SendEventRequest body) throws ApiException {
+            String assetId, String accessToken, SendValidationEventRequest body)
+            throws ApiException {
         ApiResponse<ValidateResponse> localVarResp =
                 sendValidationEventWithHttpInfo(assetId, accessToken, body);
         return localVarResp.getData();
@@ -708,7 +716,8 @@ public class DefaultApi {
      * </table>
      */
     public ApiResponse<ValidateResponse> sendValidationEventWithHttpInfo(
-            String assetId, String accessToken, SendEventRequest body) throws ApiException {
+            String assetId, String accessToken, SendValidationEventRequest body)
+            throws ApiException {
         okhttp3.Call localVarCall =
                 sendValidationEventValidateBeforeCall(assetId, accessToken, body, null);
         Type localVarReturnType = new TypeToken<ValidateResponse>() {}.getType();
@@ -735,7 +744,7 @@ public class DefaultApi {
     public okhttp3.Call sendValidationEventAsync(
             String assetId,
             String accessToken,
-            SendEventRequest body,
+            SendValidationEventRequest body,
             final ApiCallback<ValidateResponse> _callback)
             throws ApiException {
 

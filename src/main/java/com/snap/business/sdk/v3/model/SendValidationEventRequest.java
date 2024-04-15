@@ -32,29 +32,24 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/** SendEventRequest */
+/** SendValidationEventRequest */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
-public class SendEventRequest {
+public class SendValidationEventRequest {
     public static final String SERIALIZED_NAME_DATA = "data";
 
     @SerializedName(SERIALIZED_NAME_DATA)
     private List<CapiEvent> data;
 
-    public static final String SERIALIZED_NAME_TEST_EVENT_CODE = "test_event_code";
+    public SendValidationEventRequest() {}
 
-    @SerializedName(SERIALIZED_NAME_TEST_EVENT_CODE)
-    private String testEventCode;
-
-    public SendEventRequest() {}
-
-    public SendEventRequest data(List<CapiEvent> data) {
+    public SendValidationEventRequest data(List<CapiEvent> data) {
         this.data = data;
         return this;
     }
 
-    public SendEventRequest addDataItem(CapiEvent dataItem) {
+    public SendValidationEventRequest addDataItem(CapiEvent dataItem) {
         if (this.data == null) {
             this.data = new ArrayList<>();
         }
@@ -76,25 +71,6 @@ public class SendEventRequest {
         this.data = data;
     }
 
-    public SendEventRequest testEventCode(String testEventCode) {
-        this.testEventCode = testEventCode;
-        return this;
-    }
-
-    /**
-     * Add a test event code to the conversion to send a debug/test event.
-     *
-     * @return testEventCode
-     */
-    @javax.annotation.Nullable
-    public String getTestEventCode() {
-        return testEventCode;
-    }
-
-    public void setTestEventCode(String testEventCode) {
-        this.testEventCode = testEventCode;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -103,22 +79,20 @@ public class SendEventRequest {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SendEventRequest sendEventRequest = (SendEventRequest) o;
-        return Objects.equals(this.data, sendEventRequest.data)
-                && Objects.equals(this.testEventCode, sendEventRequest.testEventCode);
+        SendValidationEventRequest sendValidationEventRequest = (SendValidationEventRequest) o;
+        return Objects.equals(this.data, sendValidationEventRequest.data);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data, testEventCode);
+        return Objects.hash(data);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SendEventRequest {\n");
+        sb.append("class SendValidationEventRequest {\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");
-        sb.append("    testEventCode: ").append(toIndentedString(testEventCode)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -141,7 +115,6 @@ public class SendEventRequest {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("data");
-        openapiFields.add("test_event_code");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -151,28 +124,28 @@ public class SendEventRequest {
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to SendEventRequest
+     * @throws IOException if the JSON Element is invalid with respect to SendValidationEventRequest
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!SendEventRequest.openapiRequiredFields
+            if (!SendValidationEventRequest.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in SendEventRequest is not found in the"
-                                        + " empty JSON string",
-                                SendEventRequest.openapiRequiredFields.toString()));
+                                "The required field(s) %s in SendValidationEventRequest is not"
+                                        + " found in the empty JSON string",
+                                SendValidationEventRequest.openapiRequiredFields.toString()));
             }
         }
 
         Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
         // check to see if the JSON string contains additional fields
         for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!SendEventRequest.openapiFields.contains(entry.getKey())) {
+            if (!SendValidationEventRequest.openapiFields.contains(entry.getKey())) {
                 throw new IllegalArgumentException(
                         String.format(
                                 "The field `%s` in the JSON string is not defined in the"
-                                        + " `SendEventRequest` properties. JSON: %s",
+                                        + " `SendValidationEventRequest` properties. JSON: %s",
                                 entry.getKey(), jsonElement.toString()));
             }
         }
@@ -196,38 +169,31 @@ public class SendEventRequest {
                 ;
             }
         }
-        if ((jsonObj.get("test_event_code") != null && !jsonObj.get("test_event_code").isJsonNull())
-                && !jsonObj.get("test_event_code").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `test_event_code` to be a primitive type in the"
-                                    + " JSON string but got `%s`",
-                            jsonObj.get("test_event_code").toString()));
-        }
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!SendEventRequest.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'SendEventRequest' and its subtypes
+            if (!SendValidationEventRequest.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'SendValidationEventRequest' and its
+                // subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<SendEventRequest> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(SendEventRequest.class));
+            final TypeAdapter<SendValidationEventRequest> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(SendValidationEventRequest.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<SendEventRequest>() {
+                    new TypeAdapter<SendValidationEventRequest>() {
                         @Override
-                        public void write(JsonWriter out, SendEventRequest value)
+                        public void write(JsonWriter out, SendValidationEventRequest value)
                                 throws IOException {
                             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public SendEventRequest read(JsonReader in) throws IOException {
+                        public SendValidationEventRequest read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -237,18 +203,18 @@ public class SendEventRequest {
     }
 
     /**
-     * Create an instance of SendEventRequest given an JSON string
+     * Create an instance of SendValidationEventRequest given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of SendEventRequest
-     * @throws IOException if the JSON string is invalid with respect to SendEventRequest
+     * @return An instance of SendValidationEventRequest
+     * @throws IOException if the JSON string is invalid with respect to SendValidationEventRequest
      */
-    public static SendEventRequest fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, SendEventRequest.class);
+    public static SendValidationEventRequest fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, SendValidationEventRequest.class);
     }
 
     /**
-     * Convert an instance of SendEventRequest to an JSON string
+     * Convert an instance of SendValidationEventRequest to an JSON string
      *
      * @return JSON string
      */

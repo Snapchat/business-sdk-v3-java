@@ -1,0 +1,58 @@
+apply plugin: 'maven-publish'
+
+ext {
+    snapServiceAccount = ''
+    snapInternalRegistry = ''
+    snapInternalRegistry = ''
+    snapInternalRegistryUrl = ''
+    snapInternalRegistryUsername = ''
+}
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    Properties p = new Properties()
+    secretPropsFile.withInputStream { stream ->
+        p.load(stream)
+    }
+    p.each { name, value ->
+        project.ext[name] = value
+    }
+} else {
+    project.ext['snapServiceAccount'] = System.getenv('SNAP_SERVICE_ACCOUNT')
+    project.ext['snapInternalRegistry'] = System.getenv('SNAP_INTERNAL_REGISTRY')
+    project.ext['snapInternalRegistryUrl'] = System.getenv('SNAP_INTERNAL_REGISTRY_URL')
+    project.ext['snapInternalRegistryUsername'] = System.getenv('SNAP_INTERNAL_REGISTRY_USERNAME')
+}
+
+def getLcaToken = {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine '/home/jenkins/bin/lcaexec', 'issue', 'google', "${project.snapServiceAccount}", "${project.snapInternalRegistry}"
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.PUBLISH_GROUP_ID
+            artifactId = project.PUBLISH_ARTIFACT_ID
+            version = project.PUBLISH_VERSION
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'Internal'
+            url "${project.snapInternalRegistryUrl}"
+            authentication {
+                basic(BasicAuthentication)
+            }
+            credentials {
+                username = "${project.snapInternalRegistryUsername}"
+                password = getLcaToken()
+            }
+        }
+    }
+}

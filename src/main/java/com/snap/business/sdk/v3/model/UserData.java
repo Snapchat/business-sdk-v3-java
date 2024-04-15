@@ -173,7 +173,7 @@ public class UserData {
     }
 
     /**
-     * Get mobileAdId
+     * The mobile advertising ID of the user.
      *
      * @return mobileAdId
      */
@@ -192,7 +192,7 @@ public class UserData {
     }
 
     /**
-     * Get clientIpAddress
+     * The IP address of the user.
      *
      * @return clientIpAddress
      */
@@ -211,7 +211,7 @@ public class UserData {
     }
 
     /**
-     * Get clientUserAgent
+     * The user agent of the user.
      *
      * @return clientUserAgent
      */
@@ -419,7 +419,7 @@ public class UserData {
     }
 
     /**
-     * Get scClickId
+     * The click ID of the user.
      *
      * @return scClickId
      */
@@ -438,7 +438,7 @@ public class UserData {
     }
 
     /**
-     * Get scCookie1
+     * The cookie 1 of the user.
      *
      * @return scCookie1
      */

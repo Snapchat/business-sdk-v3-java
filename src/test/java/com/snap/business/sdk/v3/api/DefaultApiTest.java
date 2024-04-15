@@ -18,6 +18,7 @@ import com.snap.business.sdk.v3.model.EventResponse;
 import com.snap.business.sdk.v3.model.GetLogsResponse;
 import com.snap.business.sdk.v3.model.GetStatsResponse;
 import com.snap.business.sdk.v3.model.SendEventRequest;
+import com.snap.business.sdk.v3.model.SendValidationEventRequest;
 import com.snap.business.sdk.v3.model.ValidateResponse;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -61,7 +62,7 @@ public class DefaultApiTest {
     public void sendValidationEventTest() throws ApiException {
         String assetId = null;
         String accessToken = null;
-        SendEventRequest body = null;
+        SendValidationEventRequest body = null;
         ValidateResponse response = api.sendValidationEvent(assetId, accessToken, body);
         // TODO: test validations
     }

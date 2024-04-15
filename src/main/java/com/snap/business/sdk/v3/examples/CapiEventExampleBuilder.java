@@ -14,7 +14,7 @@ import java.util.Collections;
 public class CapiEventExampleBuilder {
 
     public static final String CAPI_TOKEN = "ENTER_VALID_TOKEN";
-    public static final String TEST_ASSET_ID = "4a018335-717f-41dd-a66e-58eb2473aa61";
+    public static final String TEST_ASSET_ID = "ENTER_VALID_ASSET_ID";
     public static final ServerEnv SERVER_ENV = ServerEnv.STAGING;
 
     public static CapiEvent getPixelEvent() {

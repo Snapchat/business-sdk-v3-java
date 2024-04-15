@@ -11,6 +11,7 @@ import com.snap.business.sdk.v3.model.EventResponse;
 import com.snap.business.sdk.v3.model.GetLogsResponse;
 import com.snap.business.sdk.v3.model.GetStatsResponse;
 import com.snap.business.sdk.v3.model.SendEventRequest;
+import com.snap.business.sdk.v3.model.SendValidationEventRequest;
 import com.snap.business.sdk.v3.model.ValidateResponse;
 import com.snap.business.sdk.v3.util.ConversionConstants;
 import com.snap.business.sdk.v3.util.ConversionUtil;
@@ -28,16 +29,12 @@ public class ConversionApiClient {
     private final DefaultApi capi;
     private final String accessToken;
     private final boolean isDebugEnabled;
+    private final String TEST_EVENT_CODE = "test_event_from_bsdk";
 
     private ConversionApiClient(Builder builder) {
         boolean isLaunchPadEnabled =
                 builder.launchPadUrl != null && !builder.launchPadUrl.trim().isEmpty();
         this.isDebugEnabled = builder.isDebugEnabled;
-
-        if (builder.accessToken == null || builder.accessToken.trim().isEmpty()) {
-            throw new IllegalArgumentException("Access Token is required");
-        }
-
         this.accessToken = builder.accessToken;
 
         ApiClient client =
@@ -58,41 +55,89 @@ public class ConversionApiClient {
         this.capi = new DefaultApi(client);
 
         if (isDebugEnabled) {
-            logger.info("[Snap Business SDK] Debug mode is enabled");
+            logEvent(Level.INFO, "Debug mode is enabled");
         }
 
         if (builder.isInternalDebugEnabled) {
             this.capi.getApiClient().setDebugging(true);
-            logger.info("[Snap Business SDK] Internal debug mode is enabled");
+            logEvent(Level.INFO, "Internal debug mode is enabled");
         }
     }
 
     /**
-     * Send a single event to Snap Conversion API synchronously For Asynchronous events, use
-     * sendEventAsync
+     * Synchronously sends a single event to the Snap Conversion API. Use sendEventAsync for
+     * asynchronous operation.
      *
-     * @param assetId - The asset ID to send the event to (required) (Pixel ID or Snap Pixel ID)
-     * @param capiEvent - The event to send (required)
-     * @return - The EventResponse from the API
+     * @param assetId The asset ID to which the event is sent (required), such as Pixel ID or Snap
+     *     Pixel ID.
+     * @param capiEvent The event data to send (required).
+     * @return The EventResponse from the API indicating the result of the operation.
      */
     public EventResponse sendEvent(String assetId, CapiEvent capiEvent) {
-        return sendEvents(assetId, Collections.singletonList(capiEvent));
+        return sendEvents(assetId, Collections.singletonList(capiEvent), false);
     }
 
     /**
-     * Send multiple events to Snap Conversion API synchronously For Asynchronous events, use
-     * sendEventsAsync
+     * Synchronously sends a single test event to the Snap Conversion API. Test events are sent but
+     * not processed. Use sendTestEventAsync for asynchronous operation.
+     *
+     * @param assetId The asset ID to which the event is sent (required), such as Pixel ID or Snap
+     *     Pixel ID.
+     * @param capiEvent The test event data to send (required).
+     * @return The EventResponse from the API indicating the result of the operation.
+     */
+    public EventResponse sendTestEvent(String assetId, CapiEvent capiEvent) {
+        return sendEvents(assetId, Collections.singletonList(capiEvent), true);
+    }
+
+    /**
+     * Synchronously sends a batch of events to the Snap Conversion API. Use sendEventsBatchAsync
+     * for asynchronous operation.
+     *
+     * @param assetId The asset ID to which the events are sent (required), such as Pixel ID or Snap
+     *     Pixel ID.
+     * @param capiEvents List of events to send (required).
+     * @return The EventResponse from the API indicating the result of the operation.
+     */
+    public EventResponse sendEventsBatch(String assetId, List<CapiEvent> capiEvents) {
+        return sendEvents(assetId, capiEvents, false);
+    }
+
+    /**
+     * Synchronously sends a batch of test events to the Snap Conversion API. Test events are sent
+     * but not processed. Use sendTestEventsBatchAsync for asynchronous operation.
+     *
+     * @param assetId The asset ID to which the test events are sent (required), such as Pixel ID or
+     *     Snap Pixel ID.
+     * @param capiEvents List of test events to send (required).
+     * @return The EventResponse from the API indicating the result of the operation.
+     */
+    public EventResponse sendTestEventsBatch(String assetId, List<CapiEvent> capiEvents) {
+        return sendEvents(assetId, capiEvents, true);
+    }
+
+    /**
+     * Send multiple events to Snap Conversion API synchronously.
      *
      * @param assetId - The asset ID to send the event to (required) (Pixel ID or Snap Pixel ID)
      * @param capiEvents - The list of events to send (required)
+     * @param isTestEvent - Is this a test event (Test events will be sent, but not processed)
      * @return - The EventResponse from the API
      */
-    public EventResponse sendEvents(String assetId, List<CapiEvent> capiEvents) {
+    private EventResponse sendEvents(
+            String assetId, List<CapiEvent> capiEvents, boolean isTestEvent) {
 
         EventResponse result;
         capiEvents.forEach(this::setIntegration);
         try {
+            if(assetId == null || assetId.isEmpty()){
+                throw new IllegalArgumentException("Asset ID is required for sending events");
+            }
+
             SendEventRequest request = new SendEventRequest().data(capiEvents);
+            if (isTestEvent) {
+                request.testEventCode(TEST_EVENT_CODE);
+            }
 
             result = capi.sendEvent(assetId, this.accessToken, request);
             logEvent(
@@ -101,11 +146,9 @@ public class ConversionApiClient {
                             : Level.WARNING,
                     result.toString());
         } catch (ApiException e) {
-            logger.info("API Exception: " + e.getMessage() + " - " + e.getCode());
             result = ConversionUtil.handleEventException(e);
             logEvent(Level.SEVERE, result.toString());
         } catch (Exception e) {
-            logger.info("Exception: " + e.getMessage() + " " + e.getStackTrace());
             result =
                     new EventResponse()
                             .status(EventResponse.StatusEnum.INVALID)
@@ -117,13 +160,53 @@ public class ConversionApiClient {
     }
 
     /**
-     * Send a single event to Snap Conversion API Asynchronously
+     * Asynchronously sends a single event to the Snap Conversion API.
      *
-     * @param assetId - The asset ID to send the event to (required) (Pixel ID or Snap Pixel ID)
-     * @param capiEvent - The event to send (required)
+     * @param assetId - The asset ID for the event destination (required).
+     * @param capiEvent - The event to be sent (required).
      */
     public void sendEventAsync(String assetId, CapiEvent capiEvent) {
-        sendEventsAsync(assetId, Collections.singletonList(capiEvent));
+        sendEventsAsync(assetId, Collections.singletonList(capiEvent), false);
+    }
+
+    /**
+     * Asynchronously sends a single test event to the Snap Conversion API. (Test events are sent
+     * but not processed)
+     *
+     * @param assetId - The asset ID for the event destination (required).
+     * @param capiEvent - The event to be sent (required).
+     */
+    public void sendTestEventAsync(String assetId, CapiEvent capiEvent) {
+        sendEventsAsync(assetId, Collections.singletonList(capiEvent), true);
+    }
+
+    /**
+     * Asynchronously sends a batch of events to the Snap Conversion API.
+     *
+     * @param assetId - The asset ID for the event destination (required).
+     * @param capiEvents - The list of events to be sent (required).
+     */
+    public void sendEventsBatchAsync(String assetId, List<CapiEvent> capiEvents) {
+        sendEventsAsync(
+                assetId,
+                capiEvents,
+                true,
+                ConversionUtil.getDefaultCallback(logger, isDebugEnabled));
+    }
+
+    /**
+     * Asynchronously sends a batch of test events to the Snap Conversion API. (Test events are sent
+     * but not processed)
+     *
+     * @param assetId - The asset ID for the event destination (required).
+     * @param capiEvents - The list of events to be sent (required).
+     */
+    public void sendTestEventsBatchAsync(String assetId, List<CapiEvent> capiEvents) {
+        sendEventsAsync(
+                assetId,
+                capiEvents,
+                true,
+                ConversionUtil.getDefaultCallback(logger, isDebugEnabled));
     }
 
     /**
@@ -132,15 +215,30 @@ public class ConversionApiClient {
      * @param assetId - The asset ID to send the event to (required) (Pixel ID or Snap Pixel ID)
      * @param capiEvents - The list of events to send (required)
      */
-    public void sendEventsAsync(String assetId, List<CapiEvent> capiEvents) {
+    private void sendEventsAsync(String assetId, List<CapiEvent> capiEvents, boolean isTestEvent) {
         sendEventsAsync(
-                assetId, capiEvents, ConversionUtil.getDefaultCallback(logger, isDebugEnabled));
+                assetId,
+                capiEvents,
+                isTestEvent,
+                ConversionUtil.getDefaultCallback(logger, isDebugEnabled));
     }
 
     private void sendEventsAsync(
-            String assetId, List<CapiEvent> capiEvents, ApiCallback<EventResponse> callback) {
-        SendEventRequest request = new SendEventRequest().data(capiEvents);
+            String assetId,
+            List<CapiEvent> capiEvents,
+            boolean isTestEvent,
+            ApiCallback<EventResponse> callback) {
+
         try {
+            if(assetId == null || assetId.isEmpty()){
+                throw new IllegalArgumentException("Asset ID is required for sending events");
+            }
+
+            SendEventRequest request = new SendEventRequest().data(capiEvents);
+            if (isTestEvent) {
+                request.setTestEventCode(TEST_EVENT_CODE);
+            }
+
             capi.sendEventAsync(assetId, this.accessToken, request, callback);
         } catch (Exception e) {
             logEvent(Level.SEVERE, "Failed to send events asynchronously: " + e.getMessage());
@@ -156,7 +254,7 @@ public class ConversionApiClient {
      * @return - The ValidateResponse from the API
      */
     public ValidateResponse sendValidateEvent(String assetId, CapiEvent capiEvent) {
-        return sendValidateEvents(assetId, Collections.singletonList(capiEvent));
+        return sendValidateEventsBatch(assetId, Collections.singletonList(capiEvent));
     }
 
     /**
@@ -167,12 +265,12 @@ public class ConversionApiClient {
      * @param capiEvents - The list of events to send (required)
      * @return - The ValidateResponse from the API
      */
-    public ValidateResponse sendValidateEvents(String assetId, List<CapiEvent> capiEvents) {
+    public ValidateResponse sendValidateEventsBatch(String assetId, List<CapiEvent> capiEvents) {
         ValidateResponse result;
         capiEvents.forEach(this::setIntegration);
 
         try {
-            SendEventRequest request = new SendEventRequest().data(capiEvents);
+            SendValidationEventRequest request = new SendValidationEventRequest().data(capiEvents);
             result = capi.sendValidationEvent(assetId, this.accessToken, request);
             logEvent(Level.INFO, result.toString());
         } catch (ApiException e) {

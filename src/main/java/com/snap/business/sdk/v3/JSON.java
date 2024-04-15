@@ -124,6 +124,9 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.snap.business.sdk.v3.model.SendEventRequest.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.snap.business.sdk.v3.model.SendValidationEventRequest
+                        .CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.snap.business.sdk.v3.model.StatsData.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.snap.business.sdk.v3.model.StatsResponse.CustomTypeAdapterFactory());

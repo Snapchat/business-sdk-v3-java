@@ -62,7 +62,7 @@ public class Content {
     }
 
     /**
-     * Get id
+     * The ID of the content.
      *
      * @return id
      */
@@ -81,7 +81,7 @@ public class Content {
     }
 
     /**
-     * Get quantity
+     * The quantity of the content.
      *
      * @return quantity
      */
@@ -100,7 +100,7 @@ public class Content {
     }
 
     /**
-     * Get itemPrice
+     * The price of the content.
      *
      * @return itemPrice
      */
@@ -119,7 +119,7 @@ public class Content {
     }
 
     /**
-     * Get deliveryCategory
+     * The delivery category of the content.
      *
      * @return deliveryCategory
      */

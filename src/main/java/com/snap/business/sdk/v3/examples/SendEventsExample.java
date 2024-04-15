@@ -18,8 +18,6 @@ import org.slf4j.LoggerFactory;
 
 public class SendEventsExample {
     private static final Logger logger = LoggerFactory.getLogger(SendEventsExample.class);
-    private static final String CAPI_TOKEN = "ENTER_VALID_TOKEN";
-    private static final String TEST_ASSET_ID = "4a018335-717f-41dd-a66e-58eb2473aa61";
     private static final ServerEnv SERVER_ENV = ServerEnv.STAGING;
 
     public static void main(String[] args) {
@@ -38,7 +36,7 @@ public class SendEventsExample {
 
         ConversionApiClient capiClient =
                 new ConversionApiClient.Builder()
-                        .setAccessToken(CAPI_TOKEN)
+                        .setAccessToken(CapiEventExampleBuilder.CAPI_TOKEN)
                         .setServerEnv(SERVER_ENV)
                         .setOkHttpClient(okHttpClient)
                         .withDebuggingEnabled()
@@ -48,29 +46,31 @@ public class SendEventsExample {
         // Events
         CapiEvent capiPixelEvent = CapiEventExampleBuilder.getPixelEvent();
         CapiEvent capiAppEvent = CapiEventExampleBuilder.getAppEvent();
+        String testAssetId = CapiEventExampleBuilder.TEST_ASSET_ID;
 
         // Batch Events
         List<CapiEvent> capiBatchEvents =
                 new ArrayList<>(Arrays.asList(capiPixelEvent, capiAppEvent));
 
-        System.out.println("------- Sending Single Event to CAPI -----------");
-        EventResponse apiResponse = capiClient.sendEvent(TEST_ASSET_ID, capiPixelEvent);
+        // Sending single event
+        logger.info("------- Sending Single Event to CAPI -----------");
+        EventResponse apiResponse = capiClient.sendEvent(testAssetId, capiPixelEvent);
         logger.info("--> Status: " + apiResponse.getStatus());
-        if (apiResponse.getStatus() == EventResponse.StatusEnum.INVALID) {
-            logger.info("-> errors {}", apiResponse.getErrors());
-        } else {
-            logger.info("-> Reason: {}", apiResponse.getReason());
-        }
+        logger.info("-> Reason: {}", apiResponse.getReason());
+        logger.info("-> errors {}", apiResponse.getErrors());
 
-        System.out.println("------- Sending Batch Event to CAPI -----------");
-        EventResponse apiResponseBatch = capiClient.sendEvents(TEST_ASSET_ID, capiBatchEvents);
+        // Sending test event
+        apiResponse = capiClient.sendTestEvent(testAssetId, capiPixelEvent);
+        logger.info("--> Status: " + apiResponse.getStatus());
+
+        logger.info("------- Sending Batch Events to CAPI -----------");
+        EventResponse apiResponseBatch = capiClient.sendEventsBatch(testAssetId, capiBatchEvents);
         logger.info("--> Status: " + apiResponseBatch.getStatus());
-        // logger.info("Batch Event sent to CAPI: " + capiBatchEvents.toString());
-        if (apiResponse.getStatus() == EventResponse.StatusEnum.INVALID) {
-            System.out.println(apiResponse.getErrors());
-            logger.info("-> errors {}", apiResponse.getErrors());
-        } else {
-            logger.info("-> Reason: {}", apiResponse.getReason());
-        }
+        logger.info("-> errors {}", apiResponse.getErrors());
+        logger.info("-> Reason: {}", apiResponse.getReason());
+
+        // Sending test batch event
+        apiResponseBatch = capiClient.sendTestEventsBatch(testAssetId, capiBatchEvents);
+        logger.info("--> Status: " + apiResponseBatch.getStatus());
     }
 }

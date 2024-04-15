@@ -96,11 +96,6 @@ public class CapiEvent {
     @SerializedName(SERIALIZED_NAME_ASSET_ID)
     private String assetId;
 
-    public static final String SERIALIZED_NAME_IS_TEST = "is_test";
-
-    @SerializedName(SERIALIZED_NAME_IS_TEST)
-    private Boolean isTest;
-
     public static final String SERIALIZED_NAME_REQUEST_ID = "request_id";
 
     @SerializedName(SERIALIZED_NAME_REQUEST_ID)
@@ -109,12 +104,7 @@ public class CapiEvent {
     public static final String SERIALIZED_NAME_INTEGRATION = "integration";
 
     @SerializedName(SERIALIZED_NAME_INTEGRATION)
-    private String integration;
-
-    public static final String SERIALIZED_NAME_REQUEST_TIMESTAMP = "request_timestamp";
-
-    @SerializedName(SERIALIZED_NAME_REQUEST_TIMESTAMP)
-    private Long requestTimestamp;
+    private String integration = "business-sdk-v3";
 
     public CapiEvent() {}
 
@@ -354,25 +344,6 @@ public class CapiEvent {
         this.assetId = assetId;
     }
 
-    public CapiEvent isTest(Boolean isTest) {
-        this.isTest = isTest;
-        return this;
-    }
-
-    /**
-     * Get isTest
-     *
-     * @return isTest
-     */
-    @javax.annotation.Nullable
-    public Boolean getIsTest() {
-        return isTest;
-    }
-
-    public void setIsTest(Boolean isTest) {
-        this.isTest = isTest;
-    }
-
     public CapiEvent requestId(String requestId) {
         this.requestId = requestId;
         return this;
@@ -411,25 +382,6 @@ public class CapiEvent {
         this.integration = integration;
     }
 
-    public CapiEvent requestTimestamp(Long requestTimestamp) {
-        this.requestTimestamp = requestTimestamp;
-        return this;
-    }
-
-    /**
-     * Get requestTimestamp
-     *
-     * @return requestTimestamp
-     */
-    @javax.annotation.Nullable
-    public Long getRequestTimestamp() {
-        return requestTimestamp;
-    }
-
-    public void setRequestTimestamp(Long requestTimestamp) {
-        this.requestTimestamp = requestTimestamp;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -451,10 +403,8 @@ public class CapiEvent {
                 && Objects.equals(this.rawRequest, capiEvent.rawRequest)
                 && Objects.equals(this.appData, capiEvent.appData)
                 && Objects.equals(this.assetId, capiEvent.assetId)
-                && Objects.equals(this.isTest, capiEvent.isTest)
                 && Objects.equals(this.requestId, capiEvent.requestId)
-                && Objects.equals(this.integration, capiEvent.integration)
-                && Objects.equals(this.requestTimestamp, capiEvent.requestTimestamp);
+                && Objects.equals(this.integration, capiEvent.integration);
     }
 
     @Override
@@ -472,10 +422,8 @@ public class CapiEvent {
                 rawRequest,
                 appData,
                 assetId,
-                isTest,
                 requestId,
-                integration,
-                requestTimestamp);
+                integration);
     }
 
     @Override
@@ -496,10 +444,8 @@ public class CapiEvent {
         sb.append("    rawRequest: ").append(toIndentedString(rawRequest)).append("\n");
         sb.append("    appData: ").append(toIndentedString(appData)).append("\n");
         sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
-        sb.append("    isTest: ").append(toIndentedString(isTest)).append("\n");
         sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
         sb.append("    integration: ").append(toIndentedString(integration)).append("\n");
-        sb.append("    requestTimestamp: ").append(toIndentedString(requestTimestamp)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -533,10 +479,8 @@ public class CapiEvent {
         openapiFields.add("raw_request");
         openapiFields.add("app_data");
         openapiFields.add("asset_id");
-        openapiFields.add("is_test");
         openapiFields.add("request_id");
         openapiFields.add("integration");
-        openapiFields.add("request_timestamp");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();

@@ -229,7 +229,7 @@ public class CustomData {
     }
 
     /**
-     * Get currency
+     * The currency for conversion event. Required for Purchase events.
      *
      * @return currency
      */
@@ -248,7 +248,7 @@ public class CustomData {
     }
 
     /**
-     * Get value
+     * The value of the conversion event. Required for Purchase events.
      *
      * @return value
      */
@@ -267,7 +267,7 @@ public class CustomData {
     }
 
     /**
-     * Get contentCategory
+     * The category of the content.
      *
      * @return contentCategory
      */
@@ -359,7 +359,7 @@ public class CustomData {
     }
 
     /**
-     * Get deliveryCategory
+     * The delivery category of the content.
      *
      * @return deliveryCategory
      */
@@ -378,7 +378,7 @@ public class CustomData {
     }
 
     /**
-     * Get numItems
+     * The number of items in the cart.
      *
      * @return numItems
      */
@@ -397,7 +397,7 @@ public class CustomData {
     }
 
     /**
-     * Get orderId
+     * The order ID of the purchase.
      *
      * @return orderId
      */
@@ -416,7 +416,7 @@ public class CustomData {
     }
 
     /**
-     * Get searchString
+     * The search string used by the user.
      *
      * @return searchString
      */
@@ -435,7 +435,7 @@ public class CustomData {
     }
 
     /**
-     * Get status
+     * The status of the conversion event.
      *
      * @return status
      */
@@ -481,7 +481,7 @@ public class CustomData {
     }
 
     /**
-     * Get checkinDate
+     * The check-in date for the hotel booking.
      *
      * @return checkinDate
      */
@@ -500,7 +500,7 @@ public class CustomData {
     }
 
     /**
-     * Get travelEnd
+     * The end date of the travel.
      *
      * @return travelEnd
      */
@@ -519,7 +519,7 @@ public class CustomData {
     }
 
     /**
-     * Get travelStart
+     * The start date of the travel.
      *
      * @return travelStart
      */
@@ -565,7 +565,7 @@ public class CustomData {
     }
 
     /**
-     * Get destinationAirport
+     * The destination airport for the travel.
      *
      * @return destinationAirport
      */
@@ -584,7 +584,7 @@ public class CustomData {
     }
 
     /**
-     * Get country
+     * The country for the travel.
      *
      * @return country
      */
@@ -603,7 +603,7 @@ public class CustomData {
     }
 
     /**
-     * Get city
+     * The city for the travel.
      *
      * @return city
      */
@@ -622,7 +622,7 @@ public class CustomData {
     }
 
     /**
-     * Get region
+     * The region for the travel.
      *
      * @return region
      */
@@ -641,7 +641,7 @@ public class CustomData {
     }
 
     /**
-     * Get neighborhood
+     * The neighborhood for the travel.
      *
      * @return neighborhood
      */
@@ -660,7 +660,7 @@ public class CustomData {
     }
 
     /**
-     * Get departingDepartureDate
+     * The departure date for the travel.
      *
      * @return departingDepartureDate
      */
@@ -679,7 +679,7 @@ public class CustomData {
     }
 
     /**
-     * Get departingArrivalDate
+     * The arrival date for the travel.
      *
      * @return departingArrivalDate
      */
@@ -698,7 +698,7 @@ public class CustomData {
     }
 
     /**
-     * Get numAdults
+     * The number of adults for the travel.
      *
      * @return numAdults
      */
@@ -717,7 +717,7 @@ public class CustomData {
     }
 
     /**
-     * Get originAirport
+     * The origin airport for the travel.
      *
      * @return originAirport
      */
@@ -736,7 +736,7 @@ public class CustomData {
     }
 
     /**
-     * Get returningDepartureDate
+     * The departure date for the return travel.
      *
      * @return returningDepartureDate
      */
@@ -755,7 +755,7 @@ public class CustomData {
     }
 
     /**
-     * Get returningArrivalDate
+     * The arrival date for the return travel.
      *
      * @return returningArrivalDate
      */
@@ -774,7 +774,7 @@ public class CustomData {
     }
 
     /**
-     * Get numChildren
+     * The number of children for the travel.
      *
      * @return numChildren
      */
@@ -793,7 +793,7 @@ public class CustomData {
     }
 
     /**
-     * Get hotelScore
+     * The score of the hotel.
      *
      * @return hotelScore
      */
@@ -812,7 +812,7 @@ public class CustomData {
     }
 
     /**
-     * Get postalCode
+     * The postal code for the travel.
      *
      * @return postalCode
      */
@@ -831,7 +831,7 @@ public class CustomData {
     }
 
     /**
-     * Get numInfants
+     * The number of infants for the travel.
      *
      * @return numInfants
      */
@@ -931,7 +931,7 @@ public class CustomData {
     }
 
     /**
-     * Get brands
+     * The brands associated with the conversion event.
      *
      * @return brands
      */
@@ -950,7 +950,7 @@ public class CustomData {
     }
 
     /**
-     * Get signUpMethod
+     * The sign-up method for the user.
      *
      * @return signUpMethod
      */

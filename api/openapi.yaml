@@ -74,7 +74,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/sendEvent_request'
+              $ref: '#/components/schemas/sendValidationEvent_request'
         description: Test event tool data for a specific asset id.
       responses:
         "200":
@@ -205,13 +205,11 @@ components:
         asset_id: asset_id
         event_source_url: event_source_url
         event_id: event_id
-        request_timestamp: 7
-        integration: integration
+        integration: business-sdk-v3
         event_name: event_name
         data_processing_options:
         - data_processing_options
         - data_processing_options
-        is_test: true
         app_data:
           url_schemes:
           - url_schemes
@@ -311,15 +309,11 @@ components:
           $ref: '#/components/schemas/AppData'
         asset_id:
           type: string
-        is_test:
-          type: boolean
         request_id:
           type: string
         integration:
+          default: business-sdk-v3
           type: string
-        request_timestamp:
-          format: int64
-          type: integer
       type: object
     UserData:
       example:
@@ -359,49 +353,63 @@ components:
       properties:
         em:
           items:
+            description: The email addresses of the user.
             type: string
           type: array
         ph:
           items:
+            description: The phone numbers of the user.
             type: string
           type: array
         mobile_ad_id:
+          description: The mobile advertising ID of the user.
           type: string
         client_ip_address:
+          description: The IP address of the user.
           type: string
         client_user_agent:
+          description: The user agent of the user.
           type: string
         ct:
           items:
+            description: The hashed value of the city the user. Accepts multiple values.
             type: string
           type: array
         country:
           items:
+            description: The hashed country of the user. Accepts multiple values
             type: string
           type: array
         fn:
           items:
+            description: The hashed first name of the user. Accepts multiple values.
             type: string
           type: array
         ge:
           items:
+            description: The hashed gender of the user. Accepts multiple values.
             type: string
           type: array
         ln:
           items:
+            description: The hashed last name of the user. Accepts multiple values.
             type: string
           type: array
         st:
           items:
+            description: The hashed state of the user. Accepts multiple values.
             type: string
           type: array
         zp:
           items:
+            description: The hashed ZIP code of the user. Accepts multiple values.
             type: string
           type: array
         sc_click_id:
+          description: The click ID of the user.
           type: string
         sc_cookie1:
+          description: The cookie 1 of the user.
           type: string
         idfv:
           type: string
@@ -465,13 +473,17 @@ components:
         status: status
       properties:
         currency:
+          description: The currency for conversion event. Required for Purchase events.
           type: string
         value:
+          description: The value of the conversion event. Required for Purchase events.
           type: number
         content_category:
+          description: The category of the content.
           type: string
         content_ids:
           items:
+            description: List of IDs associated with the content item.
             type: string
           type: array
         content_type:
@@ -481,74 +493,104 @@ components:
             $ref: '#/components/schemas/Content'
           type: array
         delivery_category:
+          description: The delivery category of the content.
           type: string
         num_items:
+          description: The number of items in the cart.
           type: integer
         order_id:
+          description: The order ID of the purchase.
           type: string
         search_string:
+          description: The search string used by the user.
           type: string
         status:
+          description: The status of the conversion event.
           type: string
         custom_fields:
           additionalProperties:
+            description: Extra custom fields for the conversion event.
             type: string
           type: object
         checkin_date:
+          description: The check-in date for the hotel booking.
           type: string
         travel_end:
+          description: The end date of the travel.
           type: string
         travel_start:
+          description: The start date of the travel.
           type: string
         suggested_destinations:
           items:
+            description: The suggested destinations for the user.
             type: string
           type: array
         destination_airport:
+          description: The destination airport for the travel.
           type: string
         country:
+          description: The country for the travel.
           type: string
         city:
+          description: The city for the travel.
           type: string
         region:
+          description: The region for the travel.
           type: string
         neighborhood:
+          description: The neighborhood for the travel.
           type: string
         departing_departure_date:
+          description: The departure date for the travel.
           type: string
         departing_arrival_date:
+          description: The arrival date for the travel.
           type: string
         num_adults:
+          description: The number of adults for the travel.
           type: integer
         origin_airport:
+          description: The origin airport for the travel.
           type: string
         returning_departure_date:
+          description: The departure date for the return travel.
           type: string
         returning_arrival_date:
+          description: The arrival date for the return travel.
           type: string
         num_children:
+          description: The number of children for the travel.
           type: integer
         hotel_score:
+          description: The score of the hotel.
           type: string
         postal_code:
+          description: The postal code for the travel.
           type: string
         num_infants:
+          description: The number of infants for the travel.
           type: integer
         preferred_neighborhoods:
           items:
+            description: The preferred neighborhoods for the user.
             type: string
           type: array
         preferred_star_ratings:
           items:
+            description: The preferred star ratings for the user.
             type: string
           type: array
         suggested_hotels:
           items:
+            description: The suggested hotels for the user.
             type: string
           type: array
         brands:
+          description: The brands associated with the conversion event.
           type: string
         sign_up_method:
+          description: The sign-up method for the user.
           type: string
       type: object
     Content:
@@ -559,12 +601,16 @@ components:
         id: id
       properties:
         id:
+          description: The ID of the content.
           type: string
         quantity:
+          description: The quantity of the content.
           type: string
         item_price:
+          description: The price of the content.
           type: string
         delivery_category:
+          description: The delivery category of the content.
           type: string
       type: object
     AppData:
@@ -584,23 +630,31 @@ components:
       properties:
         extinfo:
           items:
+            description: A list separated by commas of the app extension information.
             type: string
           type: array
         campaign_ids:
+          description: The campaign IDs for the app.
           type: string
         install_referrer:
+          description: The install referrer for the app.
           type: string
         installer_package:
+          description: The installer package for the app.
           type: string
         url_schemes:
           items:
+            description: The URL schemes for the app.
             type: string
           type: array
         windows_attribution_id:
+          description: The Windows attribution ID for the app.
           type: string
         app_id:
+          description: The app ID for the app.
           type: string
         advertiser_tracking_enabled:
+          description: Whether advertiser tracking is enabled for the app.
           type: boolean
       type: object
     EventResponse:
@@ -776,13 +830,11 @@ components:
               asset_id: asset_id
               event_source_url: event_source_url
               event_id: event_id
-              request_timestamp: 7
-              integration: integration
+              integration: business-sdk-v3
               event_name: event_name
               data_processing_options:
               - data_processing_options
               - data_processing_options
-              is_test: true
               app_data:
                 url_schemes:
                 - url_schemes
@@ -912,13 +964,11 @@ components:
               asset_id: asset_id
               event_source_url: event_source_url
               event_id: event_id
-              request_timestamp: 7
-              integration: integration
+              integration: business-sdk-v3
               event_name: event_name
               data_processing_options:
               - data_processing_options
               - data_processing_options
-              is_test: true
               app_data:
                 url_schemes:
                 - url_schemes
@@ -1110,13 +1160,11 @@ components:
             asset_id: asset_id
             event_source_url: event_source_url
             event_id: event_id
-            request_timestamp: 7
-            integration: integration
+            integration: business-sdk-v3
             event_name: event_name
             data_processing_options:
             - data_processing_options
             - data_processing_options
-            is_test: true
             app_data:
               url_schemes:
               - url_schemes
@@ -1264,13 +1312,11 @@ components:
           asset_id: asset_id
           event_source_url: event_source_url
           event_id: event_id
-          request_timestamp: 7
-          integration: integration
+          integration: business-sdk-v3
           event_name: event_name
           data_processing_options:
           - data_processing_options
           - data_processing_options
-          is_test: true
           app_data:
             url_schemes:
             - url_schemes
@@ -1356,6 +1402,17 @@ components:
           $ref: '#/components/schemas/CapiEvent'
       type: object
     sendEvent_request:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CapiEvent'
+          type: array
+        test_event_code:
+          description: Add a test event code to the conversion to send a debug/test
+            event.
+          type: string
+      type: object
+    sendValidationEvent_request:
       properties:
         data:
           items:

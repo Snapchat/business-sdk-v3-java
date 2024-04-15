@@ -112,7 +112,7 @@ public class AppData {
     }
 
     /**
-     * Get campaignIds
+     * The campaign IDs for the app.
      *
      * @return campaignIds
      */
@@ -131,7 +131,7 @@ public class AppData {
     }
 
     /**
-     * Get installReferrer
+     * The install referrer for the app.
      *
      * @return installReferrer
      */
@@ -150,7 +150,7 @@ public class AppData {
     }
 
     /**
-     * Get installerPackage
+     * The installer package for the app.
      *
      * @return installerPackage
      */
@@ -196,7 +196,7 @@ public class AppData {
     }
 
     /**
-     * Get windowsAttributionId
+     * The Windows attribution ID for the app.
      *
      * @return windowsAttributionId
      */
@@ -215,7 +215,7 @@ public class AppData {
     }
 
     /**
-     * Get appId
+     * The app ID for the app.
      *
      * @return appId
      */
@@ -234,7 +234,7 @@ public class AppData {
     }
 
     /**
-     * Get advertiserTrackingEnabled
+     * Whether advertiser tracking is enabled for the app.
      *
      * @return advertiserTrackingEnabled
      */

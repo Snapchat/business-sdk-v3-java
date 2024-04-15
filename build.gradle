@@ -23,6 +23,7 @@ buildscript {
 repositories {
     mavenCentral()
 }
+
 sourceSets {
     main.java.srcDirs = ['src/main/java']
 }
@@ -100,12 +101,16 @@ if(hasProperty('target') && target == 'android') {
     publishing {
         publications {
             maven(MavenPublication) {
+                groupId = project.PUBLISH_GROUP_ID
                 artifactId = project.PUBLISH_ARTIFACT_ID
+                version = project.PUBLISH_VERSION
                 from components.java
             }
 
             mavenShadow(MavenPublication) {
+                groupId = project.PUBLISH_GROUP_ID
                 artifactId = "${project.PUBLISH_ARTIFACT_ID}-shadow"
+                version = project.PUBLISH_VERSION
                 artifact shadowJar
             }
         }
@@ -116,7 +121,17 @@ if(hasProperty('target') && target == 'android') {
         classpath = sourceSets.main.runtimeClasspath
     }
 
-    apply from: "${rootDir}/publish.gradle"
+    def String publicPublish = System.getenv('PUBLIC_PUBLISH')
+    println("publicPublish: $publicPublish")
+    if (publicPublish != null && publicPublish == 'true') {
+        apply from: "${rootDir}/publish.gradle"
+    }
+
+    def String internalPublish = System.getenv('INTERNAL_PUBLISH')
+    println("internalPublish: $internalPublish")
+    if(internalPublish != null && internalPublish == 'true') {
+        apply from: "${rootDir}/publish-internal.gradle"
+    }
 }
 
 ext {
@@ -124,21 +139,22 @@ ext {
 }
 
 dependencies {
-    implementation 'io.swagger:swagger-annotations:1.6.8'
+    implementation 'io.swagger:swagger-annotations:1.6.5'
     implementation "com.google.code.findbugs:jsr305:3.0.2"
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
-    implementation 'com.google.code.gson:gson:2.9.1'
-    implementation 'io.gsonfire:gson-fire:1.9.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'io.gsonfire:gson-fire:1.8.5'
     implementation 'javax.ws.rs:jsr311-api:1.1.1'
     implementation 'javax.ws.rs:javax.ws.rs-api:2.1.1'
-    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.4'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
     implementation "jakarta.annotation:jakarta.annotation-api:$jakarta_annotation_version"
-    implementation 'org.slf4j:slf4j-jdk14:1.7.36'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
-    testImplementation 'org.mockito:mockito-core:3.12.4'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
+    implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.36'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+    testImplementation 'org.mockito:mockito-core:3.12.4'
 }
 
 tasks.withType(Javadoc) {
@@ -172,8 +188,6 @@ spotless {
         importOrder()
     }
 }
-
-build.dependsOn shadowJar
 
 test {
     // Enable JUnit 5 (Gradle 4.6+).
@@ -228,3 +242,5 @@ task runCapiAsyncExample(type: JavaExec) {
     main = 'com.snap.business.sdk.v3.examples.SendEventsAsyncExample'
     args = []
 }
+
+build.dependsOn shadowJar
