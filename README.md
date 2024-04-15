@@ -1,6 +1,4 @@
-# capi-v3-java
-
-Snap Conversions API V3
+# Snap Conversions API V3
 - API version: 1.1.2
 
 
