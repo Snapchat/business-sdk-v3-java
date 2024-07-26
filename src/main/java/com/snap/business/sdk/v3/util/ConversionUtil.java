@@ -41,13 +41,13 @@ public class ConversionUtil {
                     result == null
                             ? new EventResponse()
                                     .status(StatusEnum.INVALID)
-                                    .reason(Arrays.toString(e.getStackTrace()))
+                                    .reason(e.getResponseBody())
                             : result;
         } catch (Exception ex) {
             result =
                     new EventResponse()
                             .status(StatusEnum.INVALID)
-                            .reason(Arrays.toString(e.getStackTrace()));
+                            .reason(e.getResponseBody());
         }
         return result;
     }
@@ -60,7 +60,7 @@ public class ConversionUtil {
             result =
                     new ValidateResponse()
                             .status(ValidateResponse.StatusEnum.INVALID)
-                            .reason(Arrays.toString(e.getStackTrace()));
+                            .reason(e.getResponseBody());
         }
         return result;
     }

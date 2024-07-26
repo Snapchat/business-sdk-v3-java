@@ -3,6 +3,7 @@ package com.snap.business.sdk.v3.examples;
 
 import com.snap.business.sdk.v3.model.AppData;
 import com.snap.business.sdk.v3.model.CapiEvent;
+import com.snap.business.sdk.v3.model.Content;
 import com.snap.business.sdk.v3.model.CustomData;
 import com.snap.business.sdk.v3.model.UserData;
 import com.snap.business.sdk.v3.util.ServerEnv;
@@ -33,6 +34,15 @@ public class CapiEventExampleBuilder {
         CustomData customData = new CustomData();
         customData.setCurrency("USD");
         customData.setValue(BigDecimal.valueOf(142.52));
+
+        Content content =  new Content();
+        content.setId("item-01");
+        content.setQuantity("1");
+        content.setItemPrice("142.52");
+        content.setDeliveryCategory("home");
+        content.setBrand("brand");
+        customData.addContentsItem(content);
+
         capiEvent.setCustomData(customData);
 
         return capiEvent;
