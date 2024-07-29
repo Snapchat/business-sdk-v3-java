@@ -4,7 +4,6 @@ package com.snap.business.sdk.v3.examples;
 import com.snap.business.sdk.v3.api.ConversionApiClient;
 import com.snap.business.sdk.v3.model.CapiEvent;
 import com.snap.business.sdk.v3.model.ValidateResponse;
-import com.snap.business.sdk.v3.util.ServerEnv;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +36,8 @@ public class SendValidateEventsExample {
         logger.info("Logs: " + apiResponseValidate.getEventLogs());
 
         ValidateResponse batchResponse =
-                capiClient.sendValidateEventsBatch(CapiEventExampleBuilder.TEST_ASSET_ID, capiBatchEvents);
+                capiClient.sendValidateEventsBatch(
+                        CapiEventExampleBuilder.TEST_ASSET_ID, capiBatchEvents);
         logger.info("Status: " + batchResponse.getStatus());
         logger.info("Reason: " + batchResponse.getReason());
         logger.info("Logs: " + batchResponse.getEventLogs());

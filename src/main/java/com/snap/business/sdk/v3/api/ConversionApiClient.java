@@ -18,7 +18,9 @@ import com.snap.business.sdk.v3.util.ConversionUtil;
 import com.snap.business.sdk.v3.util.ServerEnv;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import okhttp3.OkHttpClient;
 import org.slf4j.Logger;
@@ -43,16 +45,29 @@ public class ConversionApiClient {
                         : new ApiClient();
         client.addDefaultHeader(SDK_VER_HEADER, LANG_VERSION);
         client.addDefaultHeader("accept-encoding", "");
+
+        // if there are additional headers, add them to the client.
+        if (builder.additionalHeaders != null && !builder.additionalHeaders.isEmpty()) {
+            for (Map.Entry<String, String> entry : builder.additionalHeaders.entrySet()) {
+                client.addDefaultHeader(entry.getKey(), entry.getValue());
+            }
+        }
+
         client.setServerIndex(builder.serverEnv.getIndex());
 
         if (isLaunchPadEnabled) {
-            client.setUserAgent("User-Agent-With-LaunchPad")
+            client.setUserAgent(ConversionConstants.USER_AGENT_WITH_PAD)
                     .setBasePath(builder.launchPadUrl.trim());
         } else {
-            client.setUserAgent("Standard-User-Agent");
+            client.setUserAgent(ConversionConstants.USER_AGENT);
         }
 
         this.capi = new DefaultApi(client);
+
+        // if custom url is provided, set it as the base url.
+        if (builder.customUrl != null && !builder.customUrl.isEmpty()) {
+            this.capi.setCustomBaseUrl(builder.customUrl);
+        }
 
         if (isDebugEnabled) {
             logEvent(Level.INFO, "Debug mode is enabled");
@@ -130,7 +145,7 @@ public class ConversionApiClient {
         EventResponse result;
         capiEvents.forEach(this::setIntegration);
         try {
-            if(assetId == null || assetId.isEmpty()){
+            if (assetId == null || assetId.isEmpty()) {
                 throw new IllegalArgumentException("Asset ID is required for sending events");
             }
 
@@ -230,7 +245,7 @@ public class ConversionApiClient {
             ApiCallback<EventResponse> callback) {
 
         try {
-            if(assetId == null || assetId.isEmpty()){
+            if (assetId == null || assetId.isEmpty()) {
                 throw new IllegalArgumentException("Asset ID is required for sending events");
             }
 
@@ -359,6 +374,8 @@ public class ConversionApiClient {
     public static class Builder {
         private String accessToken = "";
         private String launchPadUrl = "";
+        private String customUrl = "";
+        private Map<String, String> additionalHeaders = new HashMap<>();
         private OkHttpClient okHttpClient = null;
         private ServerEnv serverEnv = ServerEnv.PROD;
         private boolean isDebugEnabled = false;
@@ -378,6 +395,16 @@ public class ConversionApiClient {
 
         public Builder setLaunchPadUrl(String launchPadUrl) {
             this.launchPadUrl = launchPadUrl;
+            return this;
+        }
+
+        public Builder setCustomUrl(String customUrl) {
+            this.customUrl = customUrl;
+            return this;
+        }
+
+        public Builder setAdditionalHeaders(Map<String, String> additionalHeaders) {
+            this.additionalHeaders = additionalHeaders;
             return this;
         }
 
