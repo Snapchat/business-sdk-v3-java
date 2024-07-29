@@ -2,7 +2,7 @@ package com.snap.business.sdk.v3.util;
 
 public class ConversionConstants {
     public static final String SDK_LANGUAGE = "java";
-    public static final String SDK_VERSION = "1.1.4";
+    public static final String SDK_VERSION = "1.1.5";
     public static final String USER_AGENT = String.format("BusinessSDK/Java/%s", SDK_VERSION);
     public static final String USER_AGENT_WITH_PAD = String.format("%s (LaunchPAD)", USER_AGENT);
     public static final String SDK_VER_HEADER = "X-CAPI-V3-BusinessSDK";
