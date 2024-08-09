@@ -1,5 +1,7 @@
-# Snap Conversions API V3
-- API version: 1.1.2
+# capi-v3-java
+
+Snap Conversions API V3
+- API version: 1.1.5
 
 
 Business SDK V3
@@ -41,7 +43,7 @@ Add this dependency to your project's POM:
 <dependency>
   <groupId>com.snap.business.sdk.v3</groupId>
   <artifactId>snap-capi</artifactId>
-  <version>1.1.2</version>
+  <version>1.1.5</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -56,7 +58,7 @@ Add this dependency to your project's build file:
   }
 
   dependencies {
-     implementation "com.snap.business.sdk.v3:snap-capi:1.1.2"
+     implementation "com.snap.business.sdk.v3:snap-capi:1.1.5"
   }
 ```
 
@@ -70,7 +72,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/snap-capi-1.1.2.jar`
+* `target/snap-capi-1.1.5.jar`
 * `target/lib/*.jar`
 
 ## Getting Started

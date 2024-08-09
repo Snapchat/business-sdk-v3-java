@@ -54,6 +54,11 @@ public class Content {
     @SerializedName(SERIALIZED_NAME_DELIVERY_CATEGORY)
     private String deliveryCategory;
 
+    public static final String SERIALIZED_NAME_BRAND = "brand";
+
+    @SerializedName(SERIALIZED_NAME_BRAND)
+    private String brand;
+
     public Content() {}
 
     public Content id(String id) {
@@ -132,6 +137,25 @@ public class Content {
         this.deliveryCategory = deliveryCategory;
     }
 
+    public Content brand(String brand) {
+        this.brand = brand;
+        return this;
+    }
+
+    /**
+     * The brand of the content item.
+     *
+     * @return brand
+     */
+    @javax.annotation.Nullable
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -144,12 +168,13 @@ public class Content {
         return Objects.equals(this.id, content.id)
                 && Objects.equals(this.quantity, content.quantity)
                 && Objects.equals(this.itemPrice, content.itemPrice)
-                && Objects.equals(this.deliveryCategory, content.deliveryCategory);
+                && Objects.equals(this.deliveryCategory, content.deliveryCategory)
+                && Objects.equals(this.brand, content.brand);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, quantity, itemPrice, deliveryCategory);
+        return Objects.hash(id, quantity, itemPrice, deliveryCategory, brand);
     }
 
     @Override
@@ -160,6 +185,7 @@ public class Content {
         sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
         sb.append("    itemPrice: ").append(toIndentedString(itemPrice)).append("\n");
         sb.append("    deliveryCategory: ").append(toIndentedString(deliveryCategory)).append("\n");
+        sb.append("    brand: ").append(toIndentedString(brand)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -185,6 +211,7 @@ public class Content {
         openapiFields.add("quantity");
         openapiFields.add("item_price");
         openapiFields.add("delivery_category");
+        openapiFields.add("brand");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -252,6 +279,14 @@ public class Content {
                             "Expected the field `delivery_category` to be a primitive type in the"
                                     + " JSON string but got `%s`",
                             jsonObj.get("delivery_category").toString()));
+        }
+        if ((jsonObj.get("brand") != null && !jsonObj.get("brand").isJsonNull())
+                && !jsonObj.get("brand").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `brand` to be a primitive type in the JSON string"
+                                    + " but got `%s`",
+                            jsonObj.get("brand").toString()));
         }
     }
 

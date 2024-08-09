@@ -6,7 +6,6 @@ import com.snap.business.sdk.v3.ApiException;
 import com.snap.business.sdk.v3.model.EventResponse;
 import com.snap.business.sdk.v3.model.EventResponse.StatusEnum;
 import com.snap.business.sdk.v3.model.ValidateResponse;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -41,13 +40,10 @@ public class ConversionUtil {
                     result == null
                             ? new EventResponse()
                                     .status(StatusEnum.INVALID)
-                                    .reason(Arrays.toString(e.getStackTrace()))
+                                    .reason(e.getResponseBody())
                             : result;
         } catch (Exception ex) {
-            result =
-                    new EventResponse()
-                            .status(StatusEnum.INVALID)
-                            .reason(Arrays.toString(e.getStackTrace()));
+            result = new EventResponse().status(StatusEnum.INVALID).reason(e.getResponseBody());
         }
         return result;
     }
@@ -60,7 +56,7 @@ public class ConversionUtil {
             result =
                     new ValidateResponse()
                             .status(ValidateResponse.StatusEnum.INVALID)
-                            .reason(Arrays.toString(e.getStackTrace()));
+                            .reason(e.getResponseBody());
         }
         return result;
     }
