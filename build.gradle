@@ -7,7 +7,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 buildscript {
     repositories {
         maven {
-            url 'gcs://snapengine-maven-publish/releases'
+            url 'https://plugins.gradle.org/m2/'
         }
     }
     dependencies {
