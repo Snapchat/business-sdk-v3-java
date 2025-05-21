@@ -49,7 +49,8 @@ paths:
           description: unsuccessful operation
       x-codegen-request-body-name: body
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
   /v3/{asset_id}/events/validate:
     post:
       operationId: sendValidationEvent
@@ -91,7 +92,8 @@ paths:
           description: unsuccessful operation
       x-codegen-request-body-name: body
       x-content-type: application/json
-      x-accepts: application/json
+      x-accepts:
+      - application/json
   /v3/{asset_id}/events/validate/logs:
     get:
       operationId: getValidationLogs
@@ -125,7 +127,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetLogsResponse'
           description: unsuccessful operation
-      x-accepts: application/json
+      x-accepts:
+      - application/json
   /v3/{asset_id}/events/validate/stats:
     get:
       operationId: getValidationStats
@@ -160,127 +163,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetStatsResponse'
           description: unsuccessful operation
-      x-accepts: application/json
+      x-accepts:
+      - application/json
 components:
   schemas:
     CapiEvent:
-      example:
-        raw_request: raw_request
-        action_source: action_source
-        opt_out: true
-        user_data:
-          country:
-          - country
-          - country
-          st:
-          - st
-          - st
-          ln:
-          - ln
-          - ln
-          em:
-          - em
-          - em
-          mobile_ad_id: mobile_ad_id
-          fn:
-          - fn
-          - fn
-          client_ip_address: client_ip_address
-          sc_click_id: sc_click_id
-          ct:
-          - ct
-          - ct
-          zp:
-          - zp
-          - zp
-          client_user_agent: client_user_agent
-          ph:
-          - ph
-          - ph
-          idfv: idfv
-          sc_cookie1: sc_cookie1
-          ge:
-          - ge
-          - ge
-        asset_id: asset_id
-        event_source_url: event_source_url
-        event_id: event_id
-        integration: business-sdk-v3
-        event_name: event_name
-        data_processing_options:
-        - data_processing_options
-        - data_processing_options
-        app_data:
-          url_schemes:
-          - url_schemes
-          - url_schemes
-          extinfo:
-          - extinfo
-          - extinfo
-          install_referrer: install_referrer
-          windows_attribution_id: windows_attribution_id
-          campaign_ids: campaign_ids
-          advertiser_tracking_enabled: true
-          installer_package: installer_package
-          app_id: app_id
-        custom_data:
-          country: country
-          content_category: content_category
-          city: city
-          preferred_star_ratings:
-          - preferred_star_ratings
-          - preferred_star_ratings
-          delivery_category: delivery_category
-          search_string: search_string
-          returning_arrival_date: returning_arrival_date
-          suggested_hotels:
-          - suggested_hotels
-          - suggested_hotels
-          content_type: content_type
-          preferred_neighborhoods:
-          - preferred_neighborhoods
-          - preferred_neighborhoods
-          currency: currency
-          travel_end: travel_end
-          value: 6.027456183070403
-          hotel_score: hotel_score
-          sign_up_method: sign_up_method
-          returning_departure_date: returning_departure_date
-          content_ids:
-          - content_ids
-          - content_ids
-          num_infants: 2
-          brands: brands
-          custom_fields:
-            key: custom_fields
-          departing_arrival_date: departing_arrival_date
-          travel_start: travel_start
-          origin_airport: origin_airport
-          destination_airport: destination_airport
-          suggested_destinations:
-          - suggested_destinations
-          - suggested_destinations
-          num_adults: 5
-          contents:
-          - quantity: quantity
-            item_price: item_price
-            delivery_category: delivery_category
-            id: id
-          - quantity: quantity
-            item_price: item_price
-            delivery_category: delivery_category
-            id: id
-          num_items: 1
-          checkin_date: checkin_date
-          num_children: 5
-          neighborhood: neighborhood
-          region: region
-          postal_code: postal_code
-          order_id: order_id
-          departing_departure_date: departing_departure_date
-          status: status
-        request_id: request_id
-        event_time: 0
       properties:
         event_name:
           type: string
@@ -314,42 +201,10 @@ components:
         integration:
           default: business-sdk-v3
           type: string
+        test_event_code:
+          type: string
       type: object
     UserData:
-      example:
-        country:
-        - country
-        - country
-        st:
-        - st
-        - st
-        ln:
-        - ln
-        - ln
-        em:
-        - em
-        - em
-        mobile_ad_id: mobile_ad_id
-        fn:
-        - fn
-        - fn
-        client_ip_address: client_ip_address
-        sc_click_id: sc_click_id
-        ct:
-        - ct
-        - ct
-        zp:
-        - zp
-        - zp
-        client_user_agent: client_user_agent
-        ph:
-        - ph
-        - ph
-        idfv: idfv
-        sc_cookie1: sc_cookie1
-        ge:
-        - ge
-        - ge
       properties:
         em:
           items:
@@ -413,64 +268,29 @@ components:
           type: string
         idfv:
           type: string
+        external_id:
+          description: "A unique ID such as a loyalty card ID, first party cookie\
+            \ identifier, or some other identifier."
+          type: string
+        subscription_id:
+          description: The subscription ID for the user who generated this event.
+          type: string
+        lead_id:
+          description: The ID associated with a Snapchat Lead Ad.
+          type: string
+        anon_id:
+          items:
+            description: The unique application install IDs.
+            type: string
+          type: array
+        download_id:
+          description: The ID associated with an app download event.
+          type: string
+        partner_id:
+          description: "The ID provided by a partner, allowlist only."
+          type: string
       type: object
     CustomData:
-      example:
-        country: country
-        content_category: content_category
-        city: city
-        preferred_star_ratings:
-        - preferred_star_ratings
-        - preferred_star_ratings
-        delivery_category: delivery_category
-        search_string: search_string
-        returning_arrival_date: returning_arrival_date
-        suggested_hotels:
-        - suggested_hotels
-        - suggested_hotels
-        content_type: content_type
-        preferred_neighborhoods:
-        - preferred_neighborhoods
-        - preferred_neighborhoods
-        currency: currency
-        travel_end: travel_end
-        value: 6.027456183070403
-        hotel_score: hotel_score
-        sign_up_method: sign_up_method
-        returning_departure_date: returning_departure_date
-        content_ids:
-        - content_ids
-        - content_ids
-        num_infants: 2
-        brands: brands
-        custom_fields:
-          key: custom_fields
-        departing_arrival_date: departing_arrival_date
-        travel_start: travel_start
-        origin_airport: origin_airport
-        destination_airport: destination_airport
-        suggested_destinations:
-        - suggested_destinations
-        - suggested_destinations
-        num_adults: 5
-        contents:
-        - quantity: quantity
-          item_price: item_price
-          delivery_category: delivery_category
-          id: id
-        - quantity: quantity
-          item_price: item_price
-          delivery_category: delivery_category
-          id: id
-        num_items: 1
-        checkin_date: checkin_date
-        num_children: 5
-        neighborhood: neighborhood
-        region: region
-        postal_code: postal_code
-        order_id: order_id
-        departing_departure_date: departing_departure_date
-        status: status
       properties:
         currency:
           description: The currency for conversion event. Required for Purchase events.
@@ -592,13 +412,23 @@ components:
         sign_up_method:
           description: The sign-up method for the user.
           type: string
+        content_name:
+          description: The name of the page or product associated with the event
+          type: string
+        predicted_ltv:
+          description: The predicted lifetime value of a conversion event.
+          type: number
+        destination_ids:
+          items:
+            description: The IDs representative of the destinations in the catalog
+            type: string
+          type: array
+        event_tag:
+          description: "Custom label for events. Examples: in-store, weekend sales,\
+            \ back-to-school campaign"
+          type: string
       type: object
     Content:
-      example:
-        quantity: quantity
-        item_price: item_price
-        delivery_category: delivery_category
-        id: id
       properties:
         id:
           description: The ID of the content.
@@ -612,21 +442,11 @@ components:
         delivery_category:
           description: The delivery category of the content.
           type: string
+        brand:
+          description: The brand of the content item.
+          type: string
       type: object
     AppData:
-      example:
-        url_schemes:
-        - url_schemes
-        - url_schemes
-        extinfo:
-        - extinfo
-        - extinfo
-        install_referrer: install_referrer
-        windows_attribution_id: windows_attribution_id
-        campaign_ids: campaign_ids
-        advertiser_tracking_enabled: true
-        installer_package: installer_package
-        app_id: app_id
       properties:
         extinfo:
           items:
@@ -789,123 +609,6 @@ components:
           asset_id: asset_id
           event_time: event_time
           event_metadata:
-            conversion_info:
-              raw_request: raw_request
-              action_source: action_source
-              opt_out: true
-              user_data:
-                country:
-                - country
-                - country
-                st:
-                - st
-                - st
-                ln:
-                - ln
-                - ln
-                em:
-                - em
-                - em
-                mobile_ad_id: mobile_ad_id
-                fn:
-                - fn
-                - fn
-                client_ip_address: client_ip_address
-                sc_click_id: sc_click_id
-                ct:
-                - ct
-                - ct
-                zp:
-                - zp
-                - zp
-                client_user_agent: client_user_agent
-                ph:
-                - ph
-                - ph
-                idfv: idfv
-                sc_cookie1: sc_cookie1
-                ge:
-                - ge
-                - ge
-              asset_id: asset_id
-              event_source_url: event_source_url
-              event_id: event_id
-              integration: business-sdk-v3
-              event_name: event_name
-              data_processing_options:
-              - data_processing_options
-              - data_processing_options
-              app_data:
-                url_schemes:
-                - url_schemes
-                - url_schemes
-                extinfo:
-                - extinfo
-                - extinfo
-                install_referrer: install_referrer
-                windows_attribution_id: windows_attribution_id
-                campaign_ids: campaign_ids
-                advertiser_tracking_enabled: true
-                installer_package: installer_package
-                app_id: app_id
-              custom_data:
-                country: country
-                content_category: content_category
-                city: city
-                preferred_star_ratings:
-                - preferred_star_ratings
-                - preferred_star_ratings
-                delivery_category: delivery_category
-                search_string: search_string
-                returning_arrival_date: returning_arrival_date
-                suggested_hotels:
-                - suggested_hotels
-                - suggested_hotels
-                content_type: content_type
-                preferred_neighborhoods:
-                - preferred_neighborhoods
-                - preferred_neighborhoods
-                currency: currency
-                travel_end: travel_end
-                value: 6.027456183070403
-                hotel_score: hotel_score
-                sign_up_method: sign_up_method
-                returning_departure_date: returning_departure_date
-                content_ids:
-                - content_ids
-                - content_ids
-                num_infants: 2
-                brands: brands
-                custom_fields:
-                  key: custom_fields
-                departing_arrival_date: departing_arrival_date
-                travel_start: travel_start
-                origin_airport: origin_airport
-                destination_airport: destination_airport
-                suggested_destinations:
-                - suggested_destinations
-                - suggested_destinations
-                num_adults: 5
-                contents:
-                - quantity: quantity
-                  item_price: item_price
-                  delivery_category: delivery_category
-                  id: id
-                - quantity: quantity
-                  item_price: item_price
-                  delivery_category: delivery_category
-                  id: id
-                num_items: 1
-                checkin_date: checkin_date
-                num_children: 5
-                neighborhood: neighborhood
-                region: region
-                postal_code: postal_code
-                order_id: order_id
-                departing_departure_date: departing_departure_date
-                status: status
-              request_id: request_id
-              event_time: 0
             pixel_id: pixel_id
             app_id: app_id
             snap_app_id: snap_app_id
@@ -923,123 +626,6 @@ components:
           asset_id: asset_id
           event_time: event_time
           event_metadata:
-            conversion_info:
-              raw_request: raw_request
-              action_source: action_source
-              opt_out: true
-              user_data:
-                country:
-                - country
-                - country
-                st:
-                - st
-                - st
-                ln:
-                - ln
-                - ln
-                em:
-                - em
-                - em
-                mobile_ad_id: mobile_ad_id
-                fn:
-                - fn
-                - fn
-                client_ip_address: client_ip_address
-                sc_click_id: sc_click_id
-                ct:
-                - ct
-                - ct
-                zp:
-                - zp
-                - zp
-                client_user_agent: client_user_agent
-                ph:
-                - ph
-                - ph
-                idfv: idfv
-                sc_cookie1: sc_cookie1
-                ge:
-                - ge
-                - ge
-              asset_id: asset_id
-              event_source_url: event_source_url
-              event_id: event_id
-              integration: business-sdk-v3
-              event_name: event_name
-              data_processing_options:
-              - data_processing_options
-              - data_processing_options
-              app_data:
-                url_schemes:
-                - url_schemes
-                - url_schemes
-                extinfo:
-                - extinfo
-                - extinfo
-                install_referrer: install_referrer
-                windows_attribution_id: windows_attribution_id
-                campaign_ids: campaign_ids
-                advertiser_tracking_enabled: true
-                installer_package: installer_package
-                app_id: app_id
-              custom_data:
-                country: country
-                content_category: content_category
-                city: city
-                preferred_star_ratings:
-                - preferred_star_ratings
-                - preferred_star_ratings
-                delivery_category: delivery_category
-                search_string: search_string
-                returning_arrival_date: returning_arrival_date
-                suggested_hotels:
-                - suggested_hotels
-                - suggested_hotels
-                content_type: content_type
-                preferred_neighborhoods:
-                - preferred_neighborhoods
-                - preferred_neighborhoods
-                currency: currency
-                travel_end: travel_end
-                value: 6.027456183070403
-                hotel_score: hotel_score
-                sign_up_method: sign_up_method
-                returning_departure_date: returning_departure_date
-                content_ids:
-                - content_ids
-                - content_ids
-                num_infants: 2
-                brands: brands
-                custom_fields:
-                  key: custom_fields
-                departing_arrival_date: departing_arrival_date
-                travel_start: travel_start
-                origin_airport: origin_airport
-                destination_airport: destination_airport
-                suggested_destinations:
-                - suggested_destinations
-                - suggested_destinations
-                num_adults: 5
-                contents:
-                - quantity: quantity
-                  item_price: item_price
-                  delivery_category: delivery_category
-                  id: id
-                - quantity: quantity
-                  item_price: item_price
-                  delivery_category: delivery_category
-                  id: id
-                num_items: 1
-                checkin_date: checkin_date
-                num_children: 5
-                neighborhood: neighborhood
-                region: region
-                postal_code: postal_code
-                order_id: order_id
-                departing_departure_date: departing_departure_date
-                status: status
-              request_id: request_id
-              event_time: 0
             pixel_id: pixel_id
             app_id: app_id
             snap_app_id: snap_app_id
@@ -1119,123 +705,6 @@ components:
         asset_id: asset_id
         event_time: event_time
         event_metadata:
-          conversion_info:
-            raw_request: raw_request
-            action_source: action_source
-            opt_out: true
-            user_data:
-              country:
-              - country
-              - country
-              st:
-              - st
-              - st
-              ln:
-              - ln
-              - ln
-              em:
-              - em
-              - em
-              mobile_ad_id: mobile_ad_id
-              fn:
-              - fn
-              - fn
-              client_ip_address: client_ip_address
-              sc_click_id: sc_click_id
-              ct:
-              - ct
-              - ct
-              zp:
-              - zp
-              - zp
-              client_user_agent: client_user_agent
-              ph:
-              - ph
-              - ph
-              idfv: idfv
-              sc_cookie1: sc_cookie1
-              ge:
-              - ge
-              - ge
-            asset_id: asset_id
-            event_source_url: event_source_url
-            event_id: event_id
-            integration: business-sdk-v3
-            event_name: event_name
-            data_processing_options:
-            - data_processing_options
-            - data_processing_options
-            app_data:
-              url_schemes:
-              - url_schemes
-              - url_schemes
-              extinfo:
-              - extinfo
-              - extinfo
-              install_referrer: install_referrer
-              windows_attribution_id: windows_attribution_id
-              campaign_ids: campaign_ids
-              advertiser_tracking_enabled: true
-              installer_package: installer_package
-              app_id: app_id
-            custom_data:
-              country: country
-              content_category: content_category
-              city: city
-              preferred_star_ratings:
-              - preferred_star_ratings
-              - preferred_star_ratings
-              delivery_category: delivery_category
-              search_string: search_string
-              returning_arrival_date: returning_arrival_date
-              suggested_hotels:
-              - suggested_hotels
-              - suggested_hotels
-              content_type: content_type
-              preferred_neighborhoods:
-              - preferred_neighborhoods
-              - preferred_neighborhoods
-              currency: currency
-              travel_end: travel_end
-              value: 6.027456183070403
-              hotel_score: hotel_score
-              sign_up_method: sign_up_method
-              returning_departure_date: returning_departure_date
-              content_ids:
-              - content_ids
-              - content_ids
-              num_infants: 2
-              brands: brands
-              custom_fields:
-                key: custom_fields
-              departing_arrival_date: departing_arrival_date
-              travel_start: travel_start
-              origin_airport: origin_airport
-              destination_airport: destination_airport
-              suggested_destinations:
-              - suggested_destinations
-              - suggested_destinations
-              num_adults: 5
-              contents:
-              - quantity: quantity
-                item_price: item_price
-                delivery_category: delivery_category
-                id: id
-              - quantity: quantity
-                item_price: item_price
-                delivery_category: delivery_category
-                id: id
-              num_items: 1
-              checkin_date: checkin_date
-              num_children: 5
-              neighborhood: neighborhood
-              region: region
-              postal_code: postal_code
-              order_id: order_id
-              departing_departure_date: departing_departure_date
-              status: status
-            request_id: request_id
-            event_time: 0
           pixel_id: pixel_id
           app_id: app_id
           snap_app_id: snap_app_id
@@ -1271,123 +740,6 @@ components:
       type: object
     EventMetadata:
       example:
-        conversion_info:
-          raw_request: raw_request
-          action_source: action_source
-          opt_out: true
-          user_data:
-            country:
-            - country
-            - country
-            st:
-            - st
-            - st
-            ln:
-            - ln
-            - ln
-            em:
-            - em
-            - em
-            mobile_ad_id: mobile_ad_id
-            fn:
-            - fn
-            - fn
-            client_ip_address: client_ip_address
-            sc_click_id: sc_click_id
-            ct:
-            - ct
-            - ct
-            zp:
-            - zp
-            - zp
-            client_user_agent: client_user_agent
-            ph:
-            - ph
-            - ph
-            idfv: idfv
-            sc_cookie1: sc_cookie1
-            ge:
-            - ge
-            - ge
-          asset_id: asset_id
-          event_source_url: event_source_url
-          event_id: event_id
-          integration: business-sdk-v3
-          event_name: event_name
-          data_processing_options:
-          - data_processing_options
-          - data_processing_options
-          app_data:
-            url_schemes:
-            - url_schemes
-            - url_schemes
-            extinfo:
-            - extinfo
-            - extinfo
-            install_referrer: install_referrer
-            windows_attribution_id: windows_attribution_id
-            campaign_ids: campaign_ids
-            advertiser_tracking_enabled: true
-            installer_package: installer_package
-            app_id: app_id
-          custom_data:
-            country: country
-            content_category: content_category
-            city: city
-            preferred_star_ratings:
-            - preferred_star_ratings
-            - preferred_star_ratings
-            delivery_category: delivery_category
-            search_string: search_string
-            returning_arrival_date: returning_arrival_date
-            suggested_hotels:
-            - suggested_hotels
-            - suggested_hotels
-            content_type: content_type
-            preferred_neighborhoods:
-            - preferred_neighborhoods
-            - preferred_neighborhoods
-            currency: currency
-            travel_end: travel_end
-            value: 6.027456183070403
-            hotel_score: hotel_score
-            sign_up_method: sign_up_method
-            returning_departure_date: returning_departure_date
-            content_ids:
-            - content_ids
-            - content_ids
-            num_infants: 2
-            brands: brands
-            custom_fields:
-              key: custom_fields
-            departing_arrival_date: departing_arrival_date
-            travel_start: travel_start
-            origin_airport: origin_airport
-            destination_airport: destination_airport
-            suggested_destinations:
-            - suggested_destinations
-            - suggested_destinations
-            num_adults: 5
-            contents:
-            - quantity: quantity
-              item_price: item_price
-              delivery_category: delivery_category
-              id: id
-            - quantity: quantity
-              item_price: item_price
-              delivery_category: delivery_category
-              id: id
-            num_items: 1
-            checkin_date: checkin_date
-            num_children: 5
-            neighborhood: neighborhood
-            region: region
-            postal_code: postal_code
-            order_id: order_id
-            departing_departure_date: departing_departure_date
-            status: status
-          request_id: request_id
-          event_time: 0
         pixel_id: pixel_id
         app_id: app_id
         snap_app_id: snap_app_id
@@ -1398,8 +750,6 @@ components:
           type: string
         app_id:
           type: string
-        conversion_info:
-          $ref: '#/components/schemas/CapiEvent'
       type: object
     sendEvent_request:
       properties:

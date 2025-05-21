@@ -27,7 +27,7 @@ if (secretPropsFile.exists()) {
 def getLcaToken = {
     def stdout = new ByteArrayOutputStream()
     exec {
-        commandLine '/home/jenkins/bin/lcaexec', 'issue', 'google', "${project.snapServiceAccount}", "${project.snapInternalRegistry}"
+        commandLine 'lcaexec', 'issue', 'google', "repo-13527--release@snapci-identity.iam.gserviceaccount.com", 'registry.snapchat.com', '--ttl', '3600'
         standardOutput = stdout
     }
     return stdout.toString().trim()
@@ -38,21 +38,15 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = project.PUBLISH_GROUP_ID
             artifactId = project.PUBLISH_ARTIFACT_ID
-            version = project.PUBLISH_VERSION
+            version = "1.0.${System.getenv("BUILD_TAG")}"
             from components.java
         }
     }
     repositories {
         maven {
-            name = 'Internal'
-            url "${project.snapInternalRegistryUrl}"
-            authentication {
-                basic(BasicAuthentication)
-            }
-            credentials {
-                username = "${project.snapInternalRegistryUsername}"
-                password = getLcaToken()
-            }
+            // Machamp release. Documentation https://wiki.sc-corp.net/display/TOOL/Library+and+Docker+Image+Release
+            name = 'Internal' // task publishMavenJavaPublicationToInternalRepository
+            url "/source/output/maven"
         }
     }
 }

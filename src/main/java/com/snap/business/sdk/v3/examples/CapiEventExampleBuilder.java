@@ -14,25 +14,36 @@ import java.util.Collections;
 public class CapiEventExampleBuilder {
 
     public static final String CAPI_TOKEN = "ENTER_VALID_TOKEN";
-    public static final String TEST_ASSET_ID = "ENTER_VALID_ASSET_ID";
+    public static final String TEST_ASSET_ID = "43bc770f-837e-48c3-bb44-3f4135071d0d";
     public static final ServerEnv SERVER_ENV = ServerEnv.STAGING;
 
     public static CapiEvent getPixelEvent() {
         CapiEvent capiEvent = new CapiEvent();
-        capiEvent.setEventName("purchase");
-        capiEvent.setEventTime(1712009009L);
-        capiEvent.setActionSource("web");
+        capiEvent.setEventName("PURCHASE");
+        capiEvent.setEventTime(1743628571L);
+        capiEvent.setActionSource("WEB");
         capiEvent.dataProcessingOptions(Collections.singletonList("LDU"));
+        capiEvent.setAssetId(TEST_ASSET_ID);
 
         UserData userData = new UserData();
         userData.setEm(
                 Collections.singletonList(
                         "7b17fb0bd173f625b58636fb796407c22b3d16fc78302d79f0fd30c2fc2fc068"));
+        userData.setExternalId("x");
+        userData.setSubscriptionId("x");
+        userData.setLeadId("x");
+        userData.setAnonId(Arrays.asList("ANON_ID_1", "ANON_ID_2"));
+        userData.setDownloadId("x");
+        userData.setPartnerId("Axxxxxxxxx");
         capiEvent.setUserData(userData);
 
         CustomData customData = new CustomData();
         customData.setCurrency("USD");
         customData.setValue(BigDecimal.valueOf(142.52));
+        customData.setContentName("Test Content");
+        customData.setPredictedLtv(BigDecimal.valueOf(100.00));
+        customData.setDestinationIds(new ArrayList<>(Arrays.asList("123e4567-e89b-12d3-a456-426614174000", "123e4567-e89b-12d3-a456-426614174001")));
+        customData.setEventTag("test_event_tag");
         capiEvent.setCustomData(customData);
 
         return capiEvent;
@@ -44,6 +55,7 @@ public class CapiEventExampleBuilder {
         capiEvent.setEventTime(1712009009L);
         capiEvent.setActionSource("web");
         capiEvent.dataProcessingOptions(Collections.singletonList("LDU"));
+        capiEvent.setTestEventCode("test_event_code");
 
         AppData appData = new AppData();
         appData.setAppId("com.snapchat.android");
@@ -78,6 +90,7 @@ public class CapiEventExampleBuilder {
         CustomData customData = new CustomData();
         customData.setCurrency("USD");
         customData.setValue(BigDecimal.valueOf(142.52));
+        customData.setEventTag("test_event_tag");
         capiEvent.setCustomData(customData);
         return capiEvent;
     }

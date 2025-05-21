@@ -6,22 +6,29 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 buildscript {
     repositories {
-        mavenCentral()
         maven {
-            url "https://plugins.gradle.org/m2/"
+            url 'gcs://snapengine-maven-publish/releases'
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.+'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.3.0'
         classpath 'io.github.gradle-nexus:publish-plugin:1.1.0'
         classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.4'
+        classpath 'org.apache.logging.log4j:log4j-core:2.17.1'
+    }
+    configurations.all {
+        resolutionStrategy {
+            force "org.apache.logging.log4j:log4j-core:2.17.1"
+        }
     }
 }
 
 repositories {
-    mavenCentral()
+    maven {
+        url 'gcs://snapengine-maven-publish/releases'
+    }
 }
 
 sourceSets {
@@ -117,7 +124,7 @@ if(hasProperty('target') && target == 'android') {
     }
 
     task execute(type:JavaExec) {
-        main = System.getProperty('mainClass')
+        mainClass = System.getProperty('mainClass')
         classpath = sourceSets.main.runtimeClasspath
     }
 
