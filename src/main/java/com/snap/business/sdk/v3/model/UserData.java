@@ -12,10 +12,20 @@
 
 package com.snap.business.sdk.v3.model;
 
-
+import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.SerializedName;
@@ -25,11 +35,16 @@ import com.google.gson.stream.JsonWriter;
 import com.snap.business.sdk.v3.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import com.snap.business.sdk.v3.JSON;
 
 /** UserData */
 @javax.annotation.Generated(
@@ -110,6 +125,30 @@ public class UserData {
 
     @SerializedName(SERIALIZED_NAME_IDFV)
     private String idfv;
+
+    public static final String SERIALIZED_NAME_EXTERNAL_ID = "external_id";
+    @SerializedName(SERIALIZED_NAME_EXTERNAL_ID)
+    private String externalId;
+
+    public static final String SERIALIZED_NAME_SUBSCRIPTION_ID = "subscription_id";
+    @SerializedName(SERIALIZED_NAME_SUBSCRIPTION_ID)
+    private String subscriptionId;
+
+    public static final String SERIALIZED_NAME_LEAD_ID = "lead_id";
+    @SerializedName(SERIALIZED_NAME_LEAD_ID)
+    private String leadId;
+
+    public static final String SERIALIZED_NAME_ANON_ID = "anon_id";
+    @SerializedName(SERIALIZED_NAME_ANON_ID)
+    private List<String> anonId = new ArrayList<>();
+
+    public static final String SERIALIZED_NAME_DOWNLOAD_ID = "download_id";
+    @SerializedName(SERIALIZED_NAME_DOWNLOAD_ID)
+    private String downloadId;
+
+    public static final String SERIALIZED_NAME_PARTNER_ID = "partner_id";
+    @SerializedName(SERIALIZED_NAME_PARTNER_ID)
+    private String partnerId;
 
     public UserData() {}
 
@@ -470,6 +509,127 @@ public class UserData {
         this.idfv = idfv;
     }
 
+    public UserData externalId(String externalId) {
+        this.externalId = externalId;
+        return this;
+    }
+
+    /**
+     * A unique ID such as a loyalty card ID, first party cookie identifier, or some other identifier.
+     * @return externalId
+     */
+    @javax.annotation.Nullable
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+
+    public UserData subscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+        return this;
+    }
+
+    /**
+     * The subscription ID for the user who generated this event.
+     * @return subscriptionId
+     */
+    @javax.annotation.Nullable
+    public String getSubscriptionId() {
+        return subscriptionId;
+    }
+
+    public void setSubscriptionId(String subscriptionId) {
+        this.subscriptionId = subscriptionId;
+    }
+
+
+    public UserData leadId(String leadId) {
+        this.leadId = leadId;
+        return this;
+    }
+
+    /**
+     * The ID associated with a Snapchat Lead Ad.
+     * @return leadId
+     */
+    @javax.annotation.Nullable
+    public String getLeadId() {
+        return leadId;
+    }
+
+    public void setLeadId(String leadId) {
+        this.leadId = leadId;
+    }
+
+
+    public UserData anonId(List<String> anonId) {
+        this.anonId = anonId;
+        return this;
+    }
+
+    public UserData addAnonIdItem(String anonIdItem) {
+        if (this.anonId == null) {
+          this.anonId = new ArrayList<>();
+        }
+        this.anonId.add(anonIdItem);
+        return this;
+    }
+
+    /**
+     * Get anonId
+     * @return anonId
+     */
+    @javax.annotation.Nullable
+    public List<String> getAnonId() {
+        return anonId;
+    }
+
+    public void setAnonId(List<String> anonId) {
+        this.anonId = anonId;
+    }
+
+
+    public UserData downloadId(String downloadId) {
+        this.downloadId = downloadId;
+        return this;
+    }
+
+    /**
+     * The ID associated with an app download event.
+     * @return downloadId
+     */
+    @javax.annotation.Nullable
+    public String getDownloadId() {
+        return downloadId;
+    }
+
+    public void setDownloadId(String downloadId) {
+        this.downloadId = downloadId;
+    }
+
+
+    public UserData partnerId(String partnerId) {
+        this.partnerId = partnerId;
+        return this;
+    }
+
+    /**
+     * The ID provided by a partner, allowlist only.
+     * @return partnerId
+     */
+    @javax.annotation.Nullable
+    public String getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -493,7 +653,13 @@ public class UserData {
                 && Objects.equals(this.zp, userData.zp)
                 && Objects.equals(this.scClickId, userData.scClickId)
                 && Objects.equals(this.scCookie1, userData.scCookie1)
-                && Objects.equals(this.idfv, userData.idfv);
+                && Objects.equals(this.idfv, userData.idfv)
+                && Objects.equals(this.externalId, userData.externalId)
+                && Objects.equals(this.subscriptionId, userData.subscriptionId)
+                && Objects.equals(this.leadId, userData.leadId)
+                && Objects.equals(this.anonId, userData.anonId)
+                && Objects.equals(this.downloadId, userData.downloadId)
+                && Objects.equals(this.partnerId, userData.partnerId);
     }
 
     @Override
@@ -513,7 +679,13 @@ public class UserData {
                 zp,
                 scClickId,
                 scCookie1,
-                idfv);
+                idfv,
+                externalId,
+                subscriptionId,
+                leadId,
+                anonId,
+                downloadId,
+                partnerId);
     }
 
     @Override
@@ -535,6 +707,12 @@ public class UserData {
         sb.append("    scClickId: ").append(toIndentedString(scClickId)).append("\n");
         sb.append("    scCookie1: ").append(toIndentedString(scCookie1)).append("\n");
         sb.append("    idfv: ").append(toIndentedString(idfv)).append("\n");
+        sb.append("    externalId: ").append(toIndentedString(externalId)).append("\n");
+        sb.append("    subscriptionId: ").append(toIndentedString(subscriptionId)).append("\n");
+        sb.append("    leadId: ").append(toIndentedString(leadId)).append("\n");
+        sb.append("    anonId: ").append(toIndentedString(anonId)).append("\n");
+        sb.append("    downloadId: ").append(toIndentedString(downloadId)).append("\n");
+        sb.append("    partnerId: ").append(toIndentedString(partnerId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -571,6 +749,12 @@ public class UserData {
         openapiFields.add("sc_click_id");
         openapiFields.add("sc_cookie1");
         openapiFields.add("idfv");
+        openapiFields.add("external_id");
+        openapiFields.add("subscription_id");
+        openapiFields.add("lead_id");
+        openapiFields.add("anon_id");
+        openapiFields.add("download_id");
+        openapiFields.add("partner_id");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -745,6 +929,25 @@ public class UserData {
                             "Expected the field `idfv` to be a primitive type in the JSON string"
                                     + " but got `%s`",
                             jsonObj.get("idfv").toString()));
+        }
+        if ((jsonObj.get("external_id") != null && !jsonObj.get("external_id").isJsonNull()) && !jsonObj.get("external_id").isJsonPrimitive()) {
+          throw new IllegalArgumentException(String.format("Expected the field `external_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("external_id").toString()));
+        }
+        if ((jsonObj.get("subscription_id") != null && !jsonObj.get("subscription_id").isJsonNull()) && !jsonObj.get("subscription_id").isJsonPrimitive()) {
+          throw new IllegalArgumentException(String.format("Expected the field `subscription_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("subscription_id").toString()));
+        }
+        if ((jsonObj.get("lead_id") != null && !jsonObj.get("lead_id").isJsonNull()) && !jsonObj.get("lead_id").isJsonPrimitive()) {
+          throw new IllegalArgumentException(String.format("Expected the field `lead_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("lead_id").toString()));
+        }
+        // ensure the optional json data is an array if present
+        if (jsonObj.get("anon_id") != null && !jsonObj.get("anon_id").isJsonNull() && !jsonObj.get("anon_id").isJsonArray()) {
+          throw new IllegalArgumentException(String.format("Expected the field `anon_id` to be an array in the JSON string but got `%s`", jsonObj.get("anon_id").toString()));
+        }
+        if ((jsonObj.get("download_id") != null && !jsonObj.get("download_id").isJsonNull()) && !jsonObj.get("download_id").isJsonPrimitive()) {
+          throw new IllegalArgumentException(String.format("Expected the field `download_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("download_id").toString()));
+        }
+        if ((jsonObj.get("partner_id") != null && !jsonObj.get("partner_id").isJsonNull()) && !jsonObj.get("partner_id").isJsonPrimitive()) {
+          throw new IllegalArgumentException(String.format("Expected the field `partner_id` to be a primitive type in the JSON string but got `%s`", jsonObj.get("partner_id").toString()));
         }
     }
 

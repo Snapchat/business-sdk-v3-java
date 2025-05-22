@@ -13,9 +13,16 @@
 package com.snap.business.sdk.v3.model;
 
 
+import java.util.Objects;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.SerializedName;
@@ -23,8 +30,13 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import com.snap.business.sdk.v3.JSON;
+import com.snap.business.sdk.v3.model.AppData;
+import com.snap.business.sdk.v3.model.CustomData;
+import com.snap.business.sdk.v3.model.UserData;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -105,6 +117,11 @@ public class CapiEvent {
 
     @SerializedName(SERIALIZED_NAME_INTEGRATION)
     private String integration = "business-sdk-v3";
+
+    public static final String SERIALIZED_NAME_TEST_EVENT_CODE = "test_event_code";
+
+    @SerializedName(SERIALIZED_NAME_TEST_EVENT_CODE)
+    private String testEventCode;
 
     public CapiEvent() {}
 
@@ -382,6 +399,24 @@ public class CapiEvent {
         this.integration = integration;
     }
 
+    public CapiEvent testEventCode(String testEventCode) {
+        this.testEventCode = testEventCode;
+        return this;
+    }
+
+    /**
+     * Get testEventCode
+     * @return testEventCode
+     */
+    @javax.annotation.Nullable
+    public String getTestEventCode() {
+        return testEventCode;
+    }
+
+    public void setTestEventCode(String testEventCode) {
+        this.testEventCode = testEventCode;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -404,7 +439,8 @@ public class CapiEvent {
                 && Objects.equals(this.appData, capiEvent.appData)
                 && Objects.equals(this.assetId, capiEvent.assetId)
                 && Objects.equals(this.requestId, capiEvent.requestId)
-                && Objects.equals(this.integration, capiEvent.integration);
+                && Objects.equals(this.integration, capiEvent.integration)
+                && Objects.equals(this.testEventCode, capiEvent.testEventCode);
     }
 
     @Override
@@ -423,7 +459,8 @@ public class CapiEvent {
                 appData,
                 assetId,
                 requestId,
-                integration);
+                integration,
+                testEventCode);
     }
 
     @Override
@@ -446,6 +483,7 @@ public class CapiEvent {
         sb.append("    assetId: ").append(toIndentedString(assetId)).append("\n");
         sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
         sb.append("    integration: ").append(toIndentedString(integration)).append("\n");
+        sb.append("    testEventCode: ").append(toIndentedString(testEventCode)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -481,6 +519,7 @@ public class CapiEvent {
         openapiFields.add("asset_id");
         openapiFields.add("request_id");
         openapiFields.add("integration");
+        openapiFields.add("test_event_code");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -602,6 +641,9 @@ public class CapiEvent {
                             "Expected the field `integration` to be a primitive type in the JSON"
                                     + " string but got `%s`",
                             jsonObj.get("integration").toString()));
+        }
+        if ((jsonObj.get("test_event_code") != null && !jsonObj.get("test_event_code").isJsonNull()) && !jsonObj.get("test_event_code").isJsonPrimitive()) {
+            throw new IllegalArgumentException(String.format("Expected the field `test_event_code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("test_event_code").toString()));
         }
     }
 

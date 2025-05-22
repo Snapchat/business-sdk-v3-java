@@ -12,11 +12,29 @@
 
 package com.snap.business.sdk.v3.model;
 
+import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import com.snap.business.sdk.v3.model.Content;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.SerializedName;
@@ -33,6 +51,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+
+import com.snap.business.sdk.v3.JSON;
 
 /** CustomData */
 @javax.annotation.Generated(
@@ -220,6 +240,26 @@ public class CustomData {
 
     @SerializedName(SERIALIZED_NAME_SIGN_UP_METHOD)
     private String signUpMethod;
+
+    public static final String SERIALIZED_NAME_CONTENT_NAME = "content_name";
+
+    @SerializedName(SERIALIZED_NAME_CONTENT_NAME)
+    private String contentName;
+
+    public static final String SERIALIZED_NAME_PREDICTED_LTV = "predicted_ltv";
+
+    @SerializedName(SERIALIZED_NAME_PREDICTED_LTV)
+    private BigDecimal predictedLtv;
+
+    public static final String SERIALIZED_NAME_DESTINATION_IDS = "destination_ids";
+
+    @SerializedName(SERIALIZED_NAME_DESTINATION_IDS)
+    private List<String> destinationIds;
+
+    public static final String SERIALIZED_NAME_EVENT_TAG = "event_tag";
+
+    @SerializedName(SERIALIZED_NAME_EVENT_TAG)
+    private String eventTag;
 
     public CustomData() {}
 
@@ -963,6 +1003,89 @@ public class CustomData {
         this.signUpMethod = signUpMethod;
     }
 
+    public CustomData contentName(String contentName) {
+        this.contentName = contentName;
+        return this;
+    }
+
+    /**
+     * The name of the page or product associated with the event
+     * @return contentName
+     */
+    @javax.annotation.Nullable
+    public String getContentName() {
+        return contentName;
+    }
+
+    public void setContentName(String contentName) {
+        this.contentName = contentName;
+    }
+
+
+    public CustomData predictedLtv(BigDecimal predictedLtv) {
+        this.predictedLtv = predictedLtv;
+        return this;
+    }
+
+    /**
+     * The predicted lifetime value of a conversion event.
+     * @return predictedLtv
+     */
+    @javax.annotation.Nullable
+    public BigDecimal getPredictedLtv() {
+        return predictedLtv;
+    }
+
+    public void setPredictedLtv(BigDecimal predictedLtv) {
+        this.predictedLtv = predictedLtv;
+      }
+
+
+    public CustomData destinationIds(List<String> destinationIds) {
+        this.destinationIds = destinationIds;
+        return this;
+    }
+
+    public CustomData addDestinationIdsItem(String destinationIdsItem) {
+        if (this.destinationIds == null) {
+            this.destinationIds = new ArrayList<>();
+        }
+        this.destinationIds.add(destinationIdsItem);
+        return this;
+    }
+
+    /**
+    * Get destinationIds
+    * @return destinationIds
+    */
+    @javax.annotation.Nullable
+    public List<String> getDestinationIds() {
+        return destinationIds;
+    }
+
+    public void setDestinationIds(List<String> destinationIds) {
+        this.destinationIds = destinationIds;
+    }
+
+
+    public CustomData eventTag(String eventTag) {
+        this.eventTag = eventTag;
+        return this;
+    }
+
+    /**
+    * Custom label for events. Examples: in-store, weekend sales, back-to-school campaign
+    * @return eventTag
+    */
+    @javax.annotation.Nullable
+    public String getEventTag() {
+        return eventTag;
+    }
+
+    public void setEventTag(String eventTag) {
+        this.eventTag = eventTag;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -1007,7 +1130,11 @@ public class CustomData {
                 && Objects.equals(this.preferredStarRatings, customData.preferredStarRatings)
                 && Objects.equals(this.suggestedHotels, customData.suggestedHotels)
                 && Objects.equals(this.brands, customData.brands)
-                && Objects.equals(this.signUpMethod, customData.signUpMethod);
+                && Objects.equals(this.signUpMethod, customData.signUpMethod)
+                && Objects.equals(this.contentName, customData.contentName)
+                && Objects.equals(this.predictedLtv, customData.predictedLtv)
+                && Objects.equals(this.destinationIds, customData.destinationIds)
+                &&  Objects.equals(this.eventTag, customData.eventTag);
     }
 
     @Override
@@ -1048,7 +1175,11 @@ public class CustomData {
                 preferredStarRatings,
                 suggestedHotels,
                 brands,
-                signUpMethod);
+                signUpMethod,
+                contentName,
+                predictedLtv,
+                destinationIds,
+                eventTag);
     }
 
     @Override
@@ -1107,6 +1238,10 @@ public class CustomData {
         sb.append("    suggestedHotels: ").append(toIndentedString(suggestedHotels)).append("\n");
         sb.append("    brands: ").append(toIndentedString(brands)).append("\n");
         sb.append("    signUpMethod: ").append(toIndentedString(signUpMethod)).append("\n");
+        sb.append("    contentName: ").append(toIndentedString(contentName)).append("\n");
+        sb.append("    predictedLtv: ").append(toIndentedString(predictedLtv)).append("\n");
+        sb.append("    destinationIds: ").append(toIndentedString(destinationIds)).append("\n");
+        sb.append("    eventTag: ").append(toIndentedString(eventTag)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -1164,6 +1299,10 @@ public class CustomData {
         openapiFields.add("suggested_hotels");
         openapiFields.add("brands");
         openapiFields.add("sign_up_method");
+        openapiFields.add("content_name");
+        openapiFields.add("predicted_ltv");
+        openapiFields.add("destination_ids");
+        openapiFields.add("event_tag");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -1466,6 +1605,16 @@ public class CustomData {
                             "Expected the field `sign_up_method` to be a primitive type in the"
                                     + " JSON string but got `%s`",
                             jsonObj.get("sign_up_method").toString()));
+        }
+        if ((jsonObj.get("content_name") != null && !jsonObj.get("content_name").isJsonNull()) && !jsonObj.get("content_name").isJsonPrimitive()) {
+            throw new IllegalArgumentException(String.format("Expected the field `content_name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("content_name").toString()));
+        }
+        // ensure the optional json data is an array if present
+        if (jsonObj.get("destination_ids") != null && !jsonObj.get("destination_ids").isJsonNull() && !jsonObj.get("destination_ids").isJsonArray()) {
+            throw new IllegalArgumentException(String.format("Expected the field `destination_ids` to be an array in the JSON string but got `%s`", jsonObj.get("destination_ids").toString()));
+        }
+        if ((jsonObj.get("event_tag") != null && !jsonObj.get("event_tag").isJsonNull()) && !jsonObj.get("event_tag").isJsonPrimitive()) {
+            throw new IllegalArgumentException(String.format("Expected the field `event_tag` to be a primitive type in the JSON string but got `%s`", jsonObj.get("event_tag").toString()));
         }
     }
 
