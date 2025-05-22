@@ -1131,9 +1131,9 @@ public class CustomData {
                 && Objects.equals(this.suggestedHotels, customData.suggestedHotels)
                 && Objects.equals(this.brands, customData.brands)
                 && Objects.equals(this.signUpMethod, customData.signUpMethod)
-                && Objects.equals(this.contentName, customData.contentName) &&
-                && Objects.equals(this.predictedLtv, customData.predictedLtv) &&
-                && Objects.equals(this.destinationIds, customData.destinationIds) &&
+                && Objects.equals(this.contentName, customData.contentName)
+                && Objects.equals(this.predictedLtv, customData.predictedLtv)
+                && Objects.equals(this.destinationIds, customData.destinationIds)
                 &&  Objects.equals(this.eventTag, customData.eventTag);
     }
 
