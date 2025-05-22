@@ -46,8 +46,10 @@ import java.util.Set;
 
 import com.snap.business.sdk.v3.JSON;
 
-/**UserData*/
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.12.0")
+/** UserData */
+@javax.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.4.0")
 public class UserData {
     public static final String SERIALIZED_NAME_EM = "em";
 
@@ -126,32 +128,26 @@ public class UserData {
 
     public static final String SERIALIZED_NAME_EXTERNAL_ID = "external_id";
     @SerializedName(SERIALIZED_NAME_EXTERNAL_ID)
-    @javax.annotation.Nullable
     private String externalId;
 
     public static final String SERIALIZED_NAME_SUBSCRIPTION_ID = "subscription_id";
     @SerializedName(SERIALIZED_NAME_SUBSCRIPTION_ID)
-    @javax.annotation.Nullable
     private String subscriptionId;
 
     public static final String SERIALIZED_NAME_LEAD_ID = "lead_id";
     @SerializedName(SERIALIZED_NAME_LEAD_ID)
-    @javax.annotation.Nullable
     private String leadId;
 
     public static final String SERIALIZED_NAME_ANON_ID = "anon_id";
     @SerializedName(SERIALIZED_NAME_ANON_ID)
-    @javax.annotation.Nullable
     private List<String> anonId = new ArrayList<>();
 
     public static final String SERIALIZED_NAME_DOWNLOAD_ID = "download_id";
     @SerializedName(SERIALIZED_NAME_DOWNLOAD_ID)
-    @javax.annotation.Nullable
     private String downloadId;
 
     public static final String SERIALIZED_NAME_PARTNER_ID = "partner_id";
     @SerializedName(SERIALIZED_NAME_PARTNER_ID)
-    @javax.annotation.Nullable
     private String partnerId;
 
     public UserData() {}
@@ -513,7 +509,7 @@ public class UserData {
         this.idfv = idfv;
     }
 
-    public UserData externalId(@javax.annotation.Nullable String externalId) {
+    public UserData externalId(String externalId) {
         this.externalId = externalId;
         return this;
     }
@@ -527,12 +523,12 @@ public class UserData {
         return externalId;
     }
 
-    public void setExternalId(@javax.annotation.Nullable String externalId) {
+    public void setExternalId(String externalId) {
         this.externalId = externalId;
     }
 
 
-    public UserData subscriptionId(@javax.annotation.Nullable String subscriptionId) {
+    public UserData subscriptionId(String subscriptionId) {
         this.subscriptionId = subscriptionId;
         return this;
     }
@@ -546,12 +542,12 @@ public class UserData {
         return subscriptionId;
     }
 
-    public void setSubscriptionId(@javax.annotation.Nullable String subscriptionId) {
+    public void setSubscriptionId(String subscriptionId) {
         this.subscriptionId = subscriptionId;
     }
 
 
-    public UserData leadId(@javax.annotation.Nullable String leadId) {
+    public UserData leadId(String leadId) {
         this.leadId = leadId;
         return this;
     }
@@ -565,12 +561,12 @@ public class UserData {
         return leadId;
     }
 
-    public void setLeadId(@javax.annotation.Nullable String leadId) {
+    public void setLeadId(String leadId) {
         this.leadId = leadId;
     }
 
 
-    public UserData anonId(@javax.annotation.Nullable List<String> anonId) {
+    public UserData anonId(List<String> anonId) {
         this.anonId = anonId;
         return this;
     }
@@ -592,12 +588,12 @@ public class UserData {
         return anonId;
     }
 
-    public void setAnonId(@javax.annotation.Nullable List<String> anonId) {
+    public void setAnonId(List<String> anonId) {
         this.anonId = anonId;
     }
 
 
-    public UserData downloadId(@javax.annotation.Nullable String downloadId) {
+    public UserData downloadId(String downloadId) {
         this.downloadId = downloadId;
         return this;
     }
@@ -611,12 +607,12 @@ public class UserData {
         return downloadId;
     }
 
-    public void setDownloadId(@javax.annotation.Nullable String downloadId) {
+    public void setDownloadId(String downloadId) {
         this.downloadId = downloadId;
     }
 
 
-    public UserData partnerId(@javax.annotation.Nullable String partnerId) {
+    public UserData partnerId(String partnerId) {
         this.partnerId = partnerId;
         return this;
     }
@@ -630,7 +626,7 @@ public class UserData {
         return partnerId;
     }
 
-    public void setPartnerId(@javax.annotation.Nullable String partnerId) {
+    public void setPartnerId(String partnerId) {
         this.partnerId = partnerId;
     }
 

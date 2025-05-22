@@ -1012,6 +1012,7 @@ public class CustomData {
      * The name of the page or product associated with the event
      * @return contentName
      */
+    @javax.annotation.Nullable
     public String getContentName() {
         return contentName;
     }
@@ -1030,6 +1031,7 @@ public class CustomData {
      * The predicted lifetime value of a conversion event.
      * @return predictedLtv
      */
+    @javax.annotation.Nullable
     public BigDecimal getPredictedLtv() {
         return predictedLtv;
     }
@@ -1056,6 +1058,7 @@ public class CustomData {
     * Get destinationIds
     * @return destinationIds
     */
+    @javax.annotation.Nullable
     public List<String> getDestinationIds() {
         return destinationIds;
     }
@@ -1074,6 +1077,7 @@ public class CustomData {
     * Custom label for events. Examples: in-store, weekend sales, back-to-school campaign
     * @return eventTag
     */
+    @javax.annotation.Nullable
     public String getEventTag() {
         return eventTag;
     }
